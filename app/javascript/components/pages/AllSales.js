@@ -4,12 +4,35 @@ import { Card, CardImg, CardText, CardBody,
 
 
 
-const AllSales = (props) => {
-  
+  class AllSales extends React.Component {
+    constructor (props) {
+      super (props)
+      this.state = {
+        allSales:[]
+      }
+      this.getSales()
+    }
+
+  componentDidMount(){
+    this.getSales()
+  }
+
+  getSales = () => {
+    fetch("/sales")
+    .then((response)=>{
+      if(response.status ===200){
+        return(response.json())
+      }
+    })
+    .then((saleArray) => {
+      this.setState({allSales: saleArray})
+    })
+  }
+  render(){
 
   return (
     <>
-      { props.allSales.map((sale, index) => {
+      { this.state.allSales.map((sale, index) => {
           return(
             <div>
             <Card key= { index }>
@@ -25,6 +48,7 @@ const AllSales = (props) => {
       })}
     </>
   );
+}
 }
 
 

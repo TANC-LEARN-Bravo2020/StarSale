@@ -60,6 +60,7 @@ class UpdateSale extends React.Component {
           return(response.json())
         }
       })
+    
       .then(() => {
         this.setState({success:true})
       })
@@ -68,6 +69,7 @@ class UpdateSale extends React.Component {
     e.preventDefault()
     console.log(this.state.form)
     this.updateSale(this.state.form)
+   
   }
   render () {
     return (

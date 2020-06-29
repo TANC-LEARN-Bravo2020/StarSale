@@ -14,24 +14,23 @@ class App extends React.Component {
     this.state = {
       allSales:[]
     }
-    this.getSales()
   }
 
-  componentDidMount(){
-    this.getSales()
-  }
+  // componentDidMount(){
+  //   this.getSales()
+  // }
 
-  getSales = () => {
-    fetch("/sales")
-    .then((response)=>{
-      if(response.status ===200){
-        return(response.json())
-      }
-    })
-    .then((saleArray) => {
-      this.setState({allSales: saleArray})
-    })
-  }
+  // getSales = () => {
+  //   fetch("/sales")
+  //   .then((response)=>{
+  //     if(response.status ===200){
+  //       return(response.json())
+  //     }
+  //   })
+  //   .then((saleArray) => {
+  //     this.setState({allSales: saleArray})
+  //   })
+  // }
   render () {
     const {
       logged_in,
@@ -65,9 +64,9 @@ class App extends React.Component {
           </Nav>
         </Navbar>
         <Route exact path="/newsale/" component={ SaleForm }/>
-        <Route exact path="/" render={ props => <AllSales allSales={this.state.allSales}/> } />   
-        <Route exact path="/saleview/:id" render={ (props) => <ShowSale {...props} getSales={this.getSales}/> } />  
-        <Route exact path="/saleupdate/:id" render={ (props) => <UpdateSale {...props} getSales={this.getSales}/> } />  
+        <Route exact path="/"   component={ AllSales }/>
+        <Route exact path="/saleview/:id"  component={ ShowSale }/>
+        <Route exact path="/saleupdate/:id"  component={ UpdateSale}/>
       </Router>
     );
   }

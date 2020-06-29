@@ -63,15 +63,16 @@ class ShowSale extends React.Component {
       <h4>Payment Type: {sale.payment_type}</h4>
       <img src={sale.img} className="card-img"/>
       <p>{sale.description}</p>
-      
-      <button onClick={this.deleteSale}>Delete this Sale</button>
-      {this.state.deletesuccess &&
-          <Redirect to="/" />
-            }
-      <button onClick={this.updateRedirect} >Update Sale</button>
-      {this.state.update &&
-          <Redirect to={`/saleupdate/${sale.id}`} />
-            }
+      <div>
+        <button onClick={this.deleteSale}>Delete this Sale</button>
+        {this.state.deletesuccess &&
+            <Redirect to="/" />
+              }
+        <button onClick={this.updateRedirect} >Update Sale</button>
+        {this.state.update &&
+            <Redirect to={`/saleupdate/${sale.id}`} />
+              }
+      </div>
       </>
     );
   }
