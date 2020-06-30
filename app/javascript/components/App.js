@@ -5,6 +5,7 @@ import AllSales from "./pages/AllSales";
 import SaleForm from "./pages/SaleForm";
 import ShowSale from "./pages/ShowSale";
 import UpdateSale from "./pages/UpdateSale";
+import UserAccount from "./pages/UserAccount";
 
 class App extends React.Component {
   constructor(props) {
@@ -54,6 +55,13 @@ class App extends React.Component {
                 </NavLink>
               </NavItem>
             )}
+            {logged_in && (
+              <NavItem>
+                <NavLink to="/myaccount/" tag={Link}>
+                  Account Details
+                </NavLink>
+              </NavItem>
+            )}
             {!logged_in && (
               <NavItem>
                 <a
@@ -62,6 +70,17 @@ class App extends React.Component {
                   className="btn btn-primary float-right"
                 >
                   Sign In
+                </a>
+              </NavItem>
+            )}
+            {!logged_in && (
+              <NavItem>
+                <a
+                  href="/users/sign_up" 
+                  tag={Link}
+                  className="btn btn-primary float-right"
+                >
+                  Sign Up
                 </a>
               </NavItem>
             )}
@@ -82,12 +101,18 @@ class App extends React.Component {
         <Route exact path="/" component={AllSales} />
         <Route exact path="/saleupdate/:id" component={UpdateSale} />
         <Route
-          exact
-          path="/saleview/:id"
+          exact path="/saleview/:id"
           render={(props) => (
             <ShowSale {...props} current_user={this.props.current_user} />
           )}
         />
+        <Route
+        exact path="/myaccount/"
+        render={(props) => (
+          <UserAccount {...props} current_user={this.props.current_user} />
+        )}
+        />
+        
       </Router>
     );
   }
