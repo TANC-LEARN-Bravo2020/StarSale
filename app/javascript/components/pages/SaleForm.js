@@ -71,10 +71,6 @@ class SaleForm extends React.Component {
               <Input type="text" name="zip" id="zip" placeholder="10101" value={ this.state.form.zip } onChange={ this.handleChange}  />
           </FormGroup>
           <FormGroup>
-              <Label for="country">Country</Label>
-              <Input type="text" name="country" id="country" placeholder="USA" value={ this.state.form.country } onChange={ this.handleChange} />
-          </FormGroup>
-          <FormGroup>
               <Label for="date">Sale Date</Label>
               <Input type="date" name="date" id="date" placeholder="" value={ this.state.form.date } onChange={ this.handleChange} />
           </FormGroup>
