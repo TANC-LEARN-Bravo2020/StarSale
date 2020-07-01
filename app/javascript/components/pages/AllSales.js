@@ -32,24 +32,29 @@ import { Card, CardImg, CardText, CardBody,
 
   return (
     <>
-      { this.state.allSales.map((sale, index) => {
-          return(
-            <div>
-            <Card key= { index }>
-              <CardImg src={sale.img} alt="Card image cap" className="card-img" />
-              <CardBody>
-                <CardTitle>{ sale.title }</CardTitle>
-                <CardSubtitle>{sale.address}, {sale.city}</CardSubtitle>
-                <Button href={`/saleview/${sale.id}`}>View More Info</Button>
-              </CardBody>
-            </Card>
-            </div>
-          )
-      })}
+    <div className="all-sales">
+      <div className="card-list">
+        { this.state.allSales.map((sale, index) => {
+            return(
+      
+              <div className="card" >
+              <img src={sale.img} className="card-img-top"></img>
+
+                <div className="card-body">
+                  <h5 className="card-title">{ sale.title }</h5>
+                  <p className="card-text">{sale.address}, {sale.city}</p>
+                  <a href={`/saleview/${sale.id}`} className="btn btn-primary card-btn">More Info</a>
+                </div>
+              </div>
+              
+            )
+        })}
+        </div>
+      </div>
     </>
   );
 }
-}
+} 
 
 
 export default AllSales
