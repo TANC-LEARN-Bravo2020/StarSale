@@ -1,6 +1,7 @@
 import React from "react"
 import { Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button, Container, Link } from 'reactstrap'
+import { Redirect } from "react-router-dom";
 
 
 
@@ -8,7 +9,8 @@ import { Card, CardImg, CardText, CardBody,
     constructor (props) {
       super (props)
       this.state = {
-        allSales:[]
+        allSales:[],
+        deletesuccess:false
       }
       this.getSales()
     }
@@ -61,34 +63,33 @@ import { Card, CardImg, CardText, CardBody,
        <h6> Name: {current_user.name}</h6>
        <h6> Phone: {current_user.phone}</h6>
        <h6> Email: {current_user.email}</h6>
-       <a href="/users/edit"
-                  tag={Link}
-                  className="btn btn-primary"
-                >
-                  Update Account Info
-                </a>
+       <a href="/users/edit" tag={Link} className="btn btn-primary">
+          Update Account Info
+        </a>
+        <div className="card-list">
+          { this.state.allSales.map((sale, index) => {          
+            if(current_user.id === sale.user_id){
+              return(
+              <div className="card" >
+                <img src={sale.img} className="card-img-top"></img>
+                <div className="card-body">
+                  <h5 className="card-title">{ sale.title }</h5>
+                  <p className="card-text">{sale.address}, {sale.city}</p>
+                  <div className="card-btn-holder">
+                    <a href={`/saleview/${sale.id}`} className="btn btn-primary card-btn">View</a>
+                    
+                    <a href={`/saleupdate/${sale.id}`} tag={Link} className="btn btn-primary card-btn">Update</a>
 
-      { this.state.allSales.map((sale, index) => {
-          if(current_user.id === sale.user_id)
-          return(
-            <div>
-            <Card key= { index }>
-              <CardImg src={sale.img} alt="Card image cap" className="card-img" />
-              <CardBody>
-                <CardTitle>{ sale.title }</CardTitle>
-                <CardSubtitle>{sale.address}, {sale.city}</CardSubtitle>
-                <Button href={`/saleview/${sale.id}`}>View More Info</Button>
-                <div>
-                    <button onClick={this.deleteSale}>Delete this Sale</button>
-                    {this.state.deletesuccess && <Redirect to="/" />}
-                    <button onClick={this.updateRedirect}>Update Sale</button>
-                    {this.state.update && <Redirect to={`/saleupdate/${sale.id}`} />}
+                    <button onClick={this.deleteSale} className="btn btn-primary card-btn">Delete</button>
+                      {this.state.deletesuccess && <Redirect to="/" />}
+            
+                  </div>
                 </div>
-              </CardBody>
-            </Card>
-            </div>
-          )
-      })}
+              </div>
+              )
+            }
+          })}
+      </div>
       </Container>
     </>
   );
