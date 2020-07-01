@@ -1,6 +1,6 @@
 import React from "react"
-import { Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button } from 'reactstrap'
+import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button, Form, FormGroup, Container, Label, Input } from 'reactstrap'
+
 
 
 
@@ -8,13 +8,22 @@ import { Card, CardImg, CardText, CardBody,
     constructor (props) {
       super (props)
       this.state = {
-        allSales:[]
+        allSales:[],
+        form:{
+          date: ""
+        }
       }
       this.getSales()
     }
 
   componentDidMount(){
     this.getSales()
+  }
+
+  handleChange = (event) => {
+    let {form} = this.state
+    form[event.target.name]= event.target.value
+    this.setState({form: form})
   }
 
   getSales = () => {
@@ -32,11 +41,21 @@ import { Card, CardImg, CardText, CardBody,
 
   return (
     <>
+    <Container>
+      <Form>
+        <FormGroup>
+            <Label for="date">Sale Date</Label>
+            <Input type="date" name="date" id="date" placeholder="" value={ this.state.form.date } onChange={ this.handleChange} />
+        </FormGroup>
+      </Form>
+    </Container>
     <div className="all-sales">
       <div className="card-list">
         { this.state.allSales.map((sale, index) => {
+          console.log(sale.date)
+          if (new Date(sale.date) - new Date(this.state.form.date) >= 0 || this.state.form.date === "") {
             return(
-      
+
               <div className="card" >
               <img src={sale.img} className="card-img-top"></img>
 
@@ -46,15 +65,16 @@ import { Card, CardImg, CardText, CardBody,
                   <a href={`/saleview/${sale.id}`} className="btn btn-primary card-btn">More Info</a>
                 </div>
               </div>
-              
+
             )
+          }
         })}
         </div>
       </div>
     </>
   );
 }
-} 
+}
 
 
 export default AllSales
