@@ -44,7 +44,7 @@ import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button, For
     <Container>
       <Form>
         <FormGroup>
-            <Label for="date">Sale Date</Label>
+            <Label for="date">Find sales on or after a date:</Label>
             <Input type="date" name="date" id="date" placeholder="" value={ this.state.form.date } onChange={ this.handleChange} />
         </FormGroup>
       </Form>
@@ -62,6 +62,7 @@ import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button, For
                 <div className="card-body">
                   <h5 className="card-title">{ sale.title }</h5>
                   <p className="card-text">{sale.address}, {sale.city}</p>
+                  <p className="card-text">Sale Date: {sale.date}</p>
                   <a href={`/saleview/${sale.id}`} className="btn btn-primary card-btn">More Info</a>
                 </div>
               </div>
