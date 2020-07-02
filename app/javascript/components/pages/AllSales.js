@@ -10,7 +10,8 @@ import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button, For
       this.state = {
         allSales:[],
         form:{
-          date: ""
+          startdate: new Date(),
+          enddate: "",
         }
       }
       this.getSales()
@@ -18,7 +19,8 @@ import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button, For
 
   componentDidMount(){
     this.getSales()
-  }
+
+  } 
 
   handleChange = (event) => {
     let {form} = this.state
@@ -34,26 +36,42 @@ import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button, For
       }
     })
     .then((saleArray) => {
-      this.setState({allSales: saleArray})
+      this.setState({allSales: saleArray.sort(function(a, b) {
+        a = new Date(a.date);
+        b = new Date(b.date);
+        return a<b ? -1 : a>b ? 1 : 0;
+    })})
+      console.log(this.state.allSales)
     })
-  }
+  }    
+
   render(){
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
   return (
     <>
     <Container>
       <Form>
         <FormGroup>
-            <Label for="date">Find sales on or after a date:</Label>
-            <Input type="date" name="date" id="date" placeholder="" value={ this.state.form.date } onChange={ this.handleChange} />
+            <Label for="startdate">Start Date:</Label>
+            <Input type="date" name="startdate" id="startdate" placeholder="" value={ this.state.form.startdate } onChange={ this.handleChange} />
+        </FormGroup>
+        <FormGroup>
+            <Label for="enddate">End Date:</Label>
+            <Input type="date" name="enddate" id="enddate" placeholder="" value={ this.state.form.enddate } onChange={ this.handleChange} />
         </FormGroup>
       </Form>
     </Container>
     <div className="all-sales">
       <div className="card-list">
         { this.state.allSales.map((sale, index) => {
-          console.log(sale.date)
-          if (new Date(sale.date) - new Date(this.state.form.date) >= 0 || this.state.form.date === "") {
+          console.log("sale date - start date", new Date(sale.date) - new Date(this.state.form.startdate))
+
+          if (new Date(sale.date) - new Date(this.state.form.startdate) >= 0 
+          &&  (
+          (new Date(sale.date)-new Date(this.state.form.enddate) <= 0) 
+          || 
+          this.state.form.enddate === "")) {
             return(
 
               <div className="card" >
