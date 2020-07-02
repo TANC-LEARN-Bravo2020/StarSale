@@ -12,15 +12,31 @@ import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button, For
         form:{
           startdate: new Date(),
           enddate: "",
-        }
+        },
+        userLat:"",
+        userLong:""
       }
       this.getSales()
     }
 
   componentDidMount(){
     this.getSales()
+    this.getLocation()
 
   } 
+  setPosition = (position) => {
+    this.setState({userLat:position.coords.latitude, userLong:position.coords.longitude})
+  }
+
+  getLocation = () => {
+    let loc = document.getElementById("userlocation")
+    if(navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.setPosition);
+    } else { 
+      loc.innerHTML = "Geolocation is not supported by this browser.";
+    }
+  }
+  
 
   handleChange = (event) => {
     let {form} = this.state
@@ -51,6 +67,7 @@ import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button, For
   return (
     <>
     <Container>
+      <p id="userlocation"></p>
       <Form>
         <FormGroup>
             <Label for="startdate">Start Date:</Label>
