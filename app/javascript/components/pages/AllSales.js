@@ -10,15 +10,33 @@ import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button, For
       this.state = {
         allSales:[],
         form:{
-          date: ""
-        }
+          startdate: new Date(),
+          enddate: "",
+        },
+        userLat:"",
+        userLong:""
       }
       this.getSales()
     }
 
   componentDidMount(){
     this.getSales()
+    this.getLocation()
+
+  } 
+  setPosition = (position) => {
+    this.setState({userLat:position.coords.latitude, userLong:position.coords.longitude})
   }
+
+  getLocation = () => {
+    let loc = document.getElementById("userlocation")
+    if(navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.setPosition);
+    } else { 
+      loc.innerHTML = "Geolocation is not supported by this browser.";
+    }
+  }
+  
 
   handleChange = (event) => {
     let {form} = this.state
@@ -34,26 +52,43 @@ import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button, For
       }
     })
     .then((saleArray) => {
-      this.setState({allSales: saleArray})
+      this.setState({allSales: saleArray.sort(function(a, b) {
+        a = new Date(a.date);
+        b = new Date(b.date);
+        return a<b ? -1 : a>b ? 1 : 0;
+    })})
+      console.log(this.state.allSales)
     })
-  }
+  }    
+
   render(){
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
   return (
     <>
     <Container>
+      <p id="userlocation"></p>
       <Form>
         <FormGroup>
-            <Label for="date">Sale Date</Label>
-            <Input type="date" name="date" id="date" placeholder="" value={ this.state.form.date } onChange={ this.handleChange} />
+            <Label for="startdate">Start Date:</Label>
+            <Input type="date" name="startdate" id="startdate" placeholder="" value={ this.state.form.startdate } onChange={ this.handleChange} />
+        </FormGroup>
+        <FormGroup>
+            <Label for="enddate">End Date:</Label>
+            <Input type="date" name="enddate" id="enddate" placeholder="" value={ this.state.form.enddate } onChange={ this.handleChange} />
         </FormGroup>
       </Form>
     </Container>
     <div className="all-sales">
       <div className="card-list">
         { this.state.allSales.map((sale, index) => {
-          console.log(sale.date)
-          if (new Date(sale.date) - new Date(this.state.form.date) >= 0 || this.state.form.date === "") {
+          console.log("sale date - start date", new Date(sale.date) - new Date(this.state.form.startdate))
+
+          if (new Date(sale.date) - new Date(this.state.form.startdate) >= 0 
+          &&  (
+          (new Date(sale.date)-new Date(this.state.form.enddate) <= 0) 
+          || 
+          this.state.form.enddate === "")) {
             return(
 
               <div className="card" >
@@ -62,6 +97,7 @@ import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle, Button, For
                 <div className="card-body">
                   <h5 className="card-title">{ sale.title }</h5>
                   <p className="card-text">{sale.address}, {sale.city}</p>
+                  <p className="card-text">Sale Date: {sale.date}</p>
                   <a href={`/saleview/${sale.id}`} className="btn btn-primary card-btn">More Info</a>
                 </div>
               </div>
