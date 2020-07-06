@@ -124,7 +124,7 @@ import iconOutline from "../starsaleiconoutline2.png"
     <div className="all-sales">
       <div className="card-list">
         { this.state.allSales.map((sale, index) => {
-          console.log("sale date - start date", new Date(sale.date) - new Date(this.state.form.startdate))
+          let distance = this.distance(this.state.userLat, this.state.userLong, 0, 0, "M").toFixed(1)
 
           if (new Date(sale.date) - new Date(this.state.form.startdate) >= 0
           &&  (
@@ -145,7 +145,7 @@ import iconOutline from "../starsaleiconoutline2.png"
               <img src={sale.img} className="card-img-top"></img>
 
                 <div className="card-body">
-                  <p className="card-text sale-date">{sale.date} - {this.distance(this.state.userLat, this.state.userLong, 0, 0, "M").toFixed(1)} mi</p>
+                  <p className="card-text sale-date">{sale.date} - {distance} mi</p>
                   <h5 className="card-title sale-title">{ sale.title }</h5>
                   <p className="card-text sale-address">{sale.address}, {sale.city}</p>
 
