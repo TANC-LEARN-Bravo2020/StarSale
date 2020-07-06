@@ -17,7 +17,9 @@ class UpdateSale extends React.Component {
             title:"", 
             description:"", 
             payment_type:"", 
-            img:""
+            img:"",
+            latitude:"",
+            longitude:""
         },
         success:false
     }
@@ -65,11 +67,32 @@ class UpdateSale extends React.Component {
         this.setState({success:true})
       })
   }
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault()
-    console.log(this.state.form)
-    this.updateSale(this.state.form)
-   
+    let latlongform = await this.fetchLatLong()
+    console.log(latlongform)
+    // console.log(this.state.form)
+    this.updateSale(latlongform)
+  }
+
+  fetchLatLong = () => {
+    console.log("API KEY", this.props.apiKey)
+    return fetch(`http://api.positionstack.com/v1/forward?access_key=${this.props.apiKey}&query=${this.state.form.address},${this.state.form.city}${this.state.form.state}`)
+      .then((response)=>{
+        console.log("response status:",response.status)
+        if(response.status === 200){
+        }
+        return(response.json())
+      })
+      .then((response)=>{
+        console.log(response.data[0])
+        let {form} = this.state
+        console.log("the form before lat and long added", form)
+        form.latitude = response.data[0].latitude
+        form.longitude = response.data[0].longitude
+        console.log("does it save lat long?", form)
+        return form
+      })
   }
   render () {
     return (

@@ -38,6 +38,7 @@ class App extends React.Component {
       sign_in_route,
       sign_out_route,
       current_user,
+      apiKey
     } = this.props;
     return (
       <Router>
@@ -108,7 +109,10 @@ class App extends React.Component {
           <AllSales {...props} current_user={this.props.current_user} />
         )} />
 
-        <Route exact path="/saleupdate/:id" component={UpdateSale} />
+        <Route exact path="/saleupdate/:id" render={(props) => (
+          <UpdateSale {...props} apiKey={this.props.apiKey} />
+        )} />
+        
         <Route
           exact path="/saleview/:id"
           render={(props) => (

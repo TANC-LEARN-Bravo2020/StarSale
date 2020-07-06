@@ -59,7 +59,8 @@ class SaleForm extends React.Component {
 
 
   fetchLatLong = () => {
-    return fetch(`http://api.positionstack.com/v1/forward?access_key=1c843a6b2f5b7795c3ab693509ee4735&query=${this.state.form.address},${this.state.form.city}${this.state.form.state}`)
+    console.log("API KEY", this.props.apiKey)
+    return fetch(`http://api.positionstack.com/v1/forward?access_key=${this.props.apiKey}&query=${this.state.form.address},${this.state.form.city}${this.state.form.state}`)
       .then((response)=>{
         console.log("response status:",response.status)
         if(response.status === 200){
