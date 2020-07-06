@@ -78,7 +78,7 @@ class App extends React.Component {
             {!logged_in && (
               <NavItem>
                 <a
-                  href="/users/sign_up" 
+                  href="/users/sign_up"
                   tag={Link}
                   className="btn btn-primary ml-auto sign-in-out"
                 >
@@ -99,13 +99,15 @@ class App extends React.Component {
             )}
           </Nav>
         </Navbar>
-        <Route exact path="/newsale/" component={SaleForm} />
-        <Route 
+        <Route exact path="/newsale/" render={(props) => (
+          <SaleForm {...props} apiKey={this.props.apiKey} />
+        )} />
+        <Route
         exact path="/"
         render={(props) => (
           <AllSales {...props} current_user={this.props.current_user} />
         )} />
-        
+
         <Route exact path="/saleupdate/:id" component={UpdateSale} />
         <Route
           exact path="/saleview/:id"
@@ -119,7 +121,7 @@ class App extends React.Component {
           <UserAccount {...props} current_user={this.props.current_user} />
         )}
         />
-        
+
       </Router>
     );
   }

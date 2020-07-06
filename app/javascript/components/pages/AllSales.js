@@ -39,7 +39,6 @@ import iconOutline from "../starsaleiconoutline2.png"
     }
   }
 
-
   handleChange = (event) => {
     let {form} = this.state
     form[event.target.name]= event.target.value
@@ -124,7 +123,9 @@ import iconOutline from "../starsaleiconoutline2.png"
     <div className="all-sales">
       <div className="card-list">
         { this.state.allSales.map((sale, index) => {
-          let distance = this.distance(this.state.userLat, this.state.userLong, 0, 0, "M").toFixed(1)
+          let distance = this.distance(this.state.userLat, this.state.userLong, sale.latitude, sale.longitude, "M").toFixed(1)
+
+          console.log(distance, "distance", sale.latitude, "sale - latitude")
 
           if (new Date(sale.date) - new Date(this.state.form.startdate) >= 0
           &&  (

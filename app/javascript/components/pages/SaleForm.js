@@ -8,16 +8,18 @@ class SaleForm extends React.Component {
     super(props)
     this.state={
         form:{
-            address:"", 
-            city:"", 
-            state:"", 
-            zip:"", 
-            date:"", 
-            duration:"", 
-            title:"", 
-            description:"", 
-            payment_type:"", 
-            img:""
+            address:"",
+            city:"",
+            state:"",
+            zip:"",
+            date:"",
+            duration:"",
+            title:"",
+            description:"",
+            payment_type:"",
+            img:"",
+            latitude:"",
+            longitude:""
         },
         success:false
     }
@@ -27,7 +29,23 @@ class SaleForm extends React.Component {
     form[event.target.name]= event.target.value
     this.setState({form: form})
   }
+
   pushSale = (newSale) => {
+      fetch(`http://api.positionstack.com/v1/forward?access_key=1c843a6b2f5b7795c3ab693509ee4735&query=${this.state.form.address},${this.state.form.city}${this.state.form.state}`)
+      .then((response)=>{
+        if(response.status === 200){
+          return(response.json())
+        }
+      })
+      .then((response)=>{
+        console.log(response.data["0"])
+        let {form} = this.state
+        console.log(form, "the form before lat and long added")
+        form.latitude = response.data[0].latitude
+        form.longitude = response.data[0].longitude
+        //console.log(form)
+        this.setState({ form })
+      })
       fetch("/sales", {
         body: JSON.stringify(newSale),
         headers:{
@@ -44,11 +62,13 @@ class SaleForm extends React.Component {
         this.setState({success:true})
       })
   }
+
   handleSubmit = e => {
     e.preventDefault()
     console.log(this.state.form)
     this.pushSale(this.state.form)
   }
+
   render () {
     return (
       <>
@@ -85,7 +105,7 @@ class SaleForm extends React.Component {
               <Input type="date" name="date" id="date" placeholder="" value={ this.state.form.date } onChange={ this.handleChange} />
           </FormGroup>
         </Form>
-        <Form className="row"> 
+        <Form className="row">
           <FormGroup className="col-sm">
               <Label for="zip">Zip Code</Label>
               <Input type="text" name="zip" id="zip" placeholder="10101" value={ this.state.form.zip } onChange={ this.handleChange}  />
@@ -95,8 +115,8 @@ class SaleForm extends React.Component {
               <Input type="text" name="duration" id="duration" placeholder="9am-5pm" value={ this.state.form.duration } onChange={ this.handleChange} />
           </FormGroup>
          </Form>
-         <Form className="row"> 
-          
+         <Form className="row">
+
           <FormGroup className="col-sm">
               <Label for="payment_type">Payment Types Accepted</Label>
               <Input type="text" name="payment_type" id="payment_type" placeholder="Cash and Venmo" value={ this.state.form.payment_type } onChange={ this.handleChange} />
