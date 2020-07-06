@@ -51,7 +51,7 @@ class ShowSale extends React.Component {
       })
       .then(() => {
         this.setState({ deletesuccess: true });
-      });
+      }); 
   };
 
   updateRedirect = () => {

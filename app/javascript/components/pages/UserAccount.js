@@ -37,8 +37,7 @@ import { Redirect } from "react-router-dom";
       this.setState({allSales: saleArray})
     })
   }
-  deleteSale = (props) => {
-    const { id } = this.props.match.params;
+  deleteSale = (id) => {
     fetch(`/sales/${id}`, {
       headers: {
         "Content-Type": "application/json",
@@ -80,7 +79,7 @@ import { Redirect } from "react-router-dom";
                     
                     <a href={`/saleupdate/${sale.id}`} tag={Link} className="btn btn-primary card-btn">Update</a>
 
-                    <button onClick={this.deleteSale} className="btn btn-primary card-btn">Delete</button>
+                    <button onClick={()=>this.deleteSale(sale.id)} className="btn btn-primary card-btn">Delete</button>
                       {this.state.deletesuccess && <Redirect to="/" />}
             
                   </div>
