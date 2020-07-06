@@ -25,7 +25,7 @@ import iconOutline from "../starsaleiconoutline2.png"
     this.getSales()
     this.getLocation()
 
-  } 
+  }
   setPosition = (position) => {
     this.setState({userLat:position.coords.latitude, userLong:position.coords.longitude})
   }
@@ -34,17 +34,39 @@ import iconOutline from "../starsaleiconoutline2.png"
     let loc = document.getElementById("userlocation")
     if(navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(this.setPosition);
-    } else { 
+    } else {
       loc.innerHTML = "Geolocation is not supported by this browser.";
     }
   }
-  
+
 
   handleChange = (event) => {
     let {form} = this.state
     form[event.target.name]= event.target.value
     this.setState({form: form})
   }
+
+  distance = (lat1, lon1, lat2, lon2, unit) => {
+	if ((lat1 == lat2) && (lon1 == lon2)) {
+		return 0;
+	}
+	else {
+		var radlat1 = Math.PI * lat1/180;
+		var radlat2 = Math.PI * lat2/180;
+		var theta = lon1-lon2;
+		var radtheta = Math.PI * theta/180;
+		var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+		if (dist > 1) {
+			dist = 1;
+		}
+		dist = Math.acos(dist);
+		dist = dist * 180/Math.PI;
+		dist = dist * 60 * 1.1515;
+		if (unit=="K") { dist = dist * 1.609344 }
+		if (unit=="N") { dist = dist * 0.8684 }
+		return dist;
+	}
+}
 
   getSales = () => {
     fetch("/sales")
@@ -61,7 +83,7 @@ import iconOutline from "../starsaleiconoutline2.png"
     })})
       console.log(this.state.allSales)
     })
-  }    
+  }
 
   render(){
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -102,12 +124,12 @@ import iconOutline from "../starsaleiconoutline2.png"
     <div className="all-sales">
       <div className="card-list">
         { this.state.allSales.map((sale, index) => {
-          console.log("sale date - start date", new Date(sale.date) - new Date(this.state.form.startdate))
+          let distance = this.distance(this.state.userLat, this.state.userLong, 0, 0, "M").toFixed(1)
 
-          if (new Date(sale.date) - new Date(this.state.form.startdate) >= 0 
+          if (new Date(sale.date) - new Date(this.state.form.startdate) >= 0
           &&  (
-          (new Date(sale.date)-new Date(this.state.form.enddate) <= 0) 
-          || 
+          (new Date(sale.date)-new Date(this.state.form.enddate) <= 0)
+          ||
           this.state.form.enddate === ""))
           {
             return(
@@ -123,10 +145,10 @@ import iconOutline from "../starsaleiconoutline2.png"
               <img src={sale.img} className="card-img-top"></img>
 
                 <div className="card-body">
-                  <p className="card-text sale-date">{sale.date} - ??? miles away</p>
+                  <p className="card-text sale-date">{sale.date} - {distance} mi</p>
                   <h5 className="card-title sale-title">{ sale.title }</h5>
                   <p className="card-text sale-address">{sale.address}, {sale.city}</p>
-                  
+
 
                   {/* <a href={`/saleview/${sale.id}`} className="btn btn-primary card-btn">More Info</a> */}
                 </div>
