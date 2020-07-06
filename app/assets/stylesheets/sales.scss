@@ -8,15 +8,19 @@
 }
 .card{
     width:18rem;
-    height:24rem;
-    margin:.5rem
+    height:22rem;
+    margin:.5rem;
+    position:relative;
+}
+.card:hover{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
 }
 .card-list {
     display: flex;
     flex-wrap: wrap;
     align-content: space-between;
     width: 80vw;
-    background-color: yellow;
 }
 .card-img-top{
     min-height: 199px;
@@ -30,5 +34,86 @@
     height:2.5rem;
 }
 .card-text{
-    height:3rem;
+    text-overflow: ellipsis
+}
+.btn-primary {
+    color: #fff;
+    background-color: #537D8D !important ;
+    border-color: #537D8D !important ;
+}
+.nav-link {
+    display: block;
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem !important;
+    color: #537D8D !important ;
+}
+.your-sale{
+    color: white;
+    font-size: 15px;
+}
+.sale-date{
+    color: #B1161D;
+    
+}
+.sale-title {
+    color:#002626
+}
+.sale-address{
+    color:#002626;
+    text-overflow: ellipsis
+}
+.corner-shadow{
+    background-color: #002626 ;
+    opacity: 70%;
+    width:8rem;
+    height:2rem;
+    position: absolute;
+    z-index: 10;
+    padding: .3rem;
+}
+.star-div{
+    position: absolute;
+    display: flex;
+    justify-content: flex-end;
+    height: 50px;
+    width: 100%;
+}
+.star-button{
+    height: 50px;
+    width:50px;
+    border-radius: 50%;
+    background-color: transparent;
+    border: none;
+}
+.star-fave{
+    height:40px;
+    transition: all .15s ease-in-out;
+}
+.star-fave:hover{
+    transform: scale(1.2);
+}
+.page-header{
+    text-align: center;
+    margin-bottom: 3rem;
+    color: #537D8D;
+    font-size: 40px;
+}
+
+label{
+    font-size: 18px;
+}
+
+.form-page{
+    background-color:#ebebeb;
+    height:100vh;
+}
+
+.form-container{
+    background-color: white;
+    height:100vh;
+    padding-top:3rem;
+
+}
+.sale-img{
+    width:100%;
 }
