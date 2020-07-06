@@ -31,21 +31,7 @@ class SaleForm extends React.Component {
   }
 
   pushSale = (newSale) => {
-      fetch(`http://api.positionstack.com/v1/forward?access_key=1c843a6b2f5b7795c3ab693509ee4735&query=${this.state.form.address},${this.state.form.city}${this.state.form.state}`)
-      .then((response)=>{
-        if(response.status === 200){
-          return(response.json())
-        }
-      })
-      .then((response)=>{
-        console.log(response.data["0"])
-        let {form} = this.state
-        console.log(form, "the form before lat and long added")
-        form.latitude = response.data[0].latitude
-        form.longitude = response.data[0].longitude
-        //console.log(form)
-        this.setState({ form })
-      })
+    console.log("new sale", newSale)
       fetch("/sales", {
         body: JSON.stringify(newSale),
         headers:{
@@ -63,15 +49,36 @@ class SaleForm extends React.Component {
       })
   }
 
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault()
-    console.log(this.state.form)
-    this.pushSale(this.state.form)
+    let latlongform = await this.fetchLatLong()
+    console.log(latlongform)
+    // console.log(this.state.form)
+    this.pushSale(latlongform)
+  }
+
+
+  fetchLatLong = () => {
+    return fetch(`http://api.positionstack.com/v1/forward?access_key=1c843a6b2f5b7795c3ab693509ee4735&query=${this.state.form.address},${this.state.form.city}${this.state.form.state}`)
+      .then((response)=>{
+        console.log("response status:",response.status)
+        if(response.status === 200){
+        }
+        return(response.json())
+      })
+      .then((response)=>{
+        console.log(response.data[0])
+        let {form} = this.state
+        console.log("the form before lat and long added", form)
+        form.latitude = response.data[0].latitude
+        form.longitude = response.data[0].longitude
+        console.log("does it save lat long?", form)
+        return form
+      })
   }
 
   render () {
     return (
-      <>
       <div className="form-page">
       <Container className="form-container">
         <h2 className="page-header">Create a New Sale</h2>
@@ -133,7 +140,6 @@ class SaleForm extends React.Component {
             }
       </Container>
       </div>
-      </>
     );
   }
 }

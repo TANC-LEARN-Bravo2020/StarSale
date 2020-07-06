@@ -99,7 +99,7 @@ class App extends React.Component {
             )}
           </Nav>
         </Navbar>
-        <Route exact path="/newsale/" render={(props) => (
+        <Route path="/newsale/" render={(props) => (
           <SaleForm {...props} apiKey={this.props.apiKey} />
         )} />
         <Route
@@ -116,7 +116,7 @@ class App extends React.Component {
           )}
         />
         <Route
-        exact path="/myaccount/"
+        path="/myaccount/"
         render={(props) => (
           <UserAccount {...props} current_user={this.props.current_user} />
         )}

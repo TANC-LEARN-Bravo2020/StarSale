@@ -42,6 +42,6 @@ before_action :authenticate_user!, only: [:create]
 
     private
     def sale_params
-        params.require(:sale).permit(:address, :city, :state, :zip, :date, :duration, :title, :description, :payment_type, :img)
+        params.require(:sale).permit(:address, :city, :state, :zip, :date, :duration, :title, :description, :payment_type, :img, :latitude, :longitude)
     end
 end
