@@ -6,6 +6,7 @@ import SaleForm from "./pages/SaleForm";
 import ShowSale from "./pages/ShowSale";
 import UpdateSale from "./pages/UpdateSale";
 import UserAccount from "./pages/UserAccount";
+import logo from "./starsalelogo.png"
 
 class App extends React.Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class App extends React.Component {
       allSales: [],
     };
   }
+
 
   // componentDidMount(){
   //   this.getSales()
@@ -40,24 +42,24 @@ class App extends React.Component {
     return (
       <Router>
         <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">StarSale</NavbarBrand>
-          <Nav className="nav-bar">
+          <NavbarBrand href="/"><img src={ logo } width="200px"/></NavbarBrand>
+          <Nav className="nav-bar ml-auto">
             <NavItem>
-              <NavLink to="/" tag={Link}>
+              <NavLink to="/" tag={Link} className="ml-auto">
                 See All Sales
               </NavLink>
             </NavItem>
 
             {logged_in && (
               <NavItem>
-                <NavLink to="/newsale" tag={Link}>
+                <NavLink to="/newsale" tag={Link} className="ml-auto">
                   Post a New Sale
                 </NavLink>
               </NavItem>
             )}
             {logged_in && (
               <NavItem>
-                <NavLink to="/myaccount/" tag={Link}>
+                <NavLink to="/myaccount/" tag={Link} className="ml-auto">
                   Account Details
                 </NavLink>
               </NavItem>
@@ -67,7 +69,7 @@ class App extends React.Component {
                 <a
                   href={sign_in_route}
                   tag={Link}
-                  className="btn btn-primary float-right"
+                  className="btn btn-primary ml-auto sign-in-out"
                 >
                   Sign In
                 </a>
@@ -78,7 +80,7 @@ class App extends React.Component {
                 <a
                   href="/users/sign_up" 
                   tag={Link}
-                  className="btn btn-primary float-right"
+                  className="btn btn-primary ml-auto sign-in-out"
                 >
                   Sign Up
                 </a>
@@ -89,7 +91,7 @@ class App extends React.Component {
                 <a
                   href={sign_out_route}
                   tag={Link}
-                  className="btn btn-primary float-right"
+                  className="btn btn-primary ml-auto sign-in-out"
                 >
                   Sign Out
                 </a>
@@ -98,7 +100,12 @@ class App extends React.Component {
           </Nav>
         </Navbar>
         <Route exact path="/newsale/" component={SaleForm} />
-        <Route exact path="/" component={AllSales} />
+        <Route 
+        exact path="/"
+        render={(props) => (
+          <AllSales {...props} current_user={this.props.current_user} />
+        )} />
+        
         <Route exact path="/saleupdate/:id" component={UpdateSale} />
         <Route
           exact path="/saleview/:id"

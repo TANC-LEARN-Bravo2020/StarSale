@@ -63,24 +63,32 @@ class ShowSale extends React.Component {
     const { current_user } = this.props;
     return (
       <>
-        <h2>{sale.title}</h2>
-        <h4>Address: {sale.address},</h4>
-        <h4>
-          {" "}
-          {sale.city}, {sale.state} {sale.zip}
-        </h4>
-        <h4>Payment Type: {sale.payment_type}</h4>
-        <img src={sale.img} className="card-img" />
-        <p>{sale.description}</p>
-        {console.log(current_user, sale.user_id)}
-        {current_user.id === sale.user_id && (
-          <div>
-            <button onClick={this.deleteSale}>Delete this Sale</button>
-            {this.state.deletesuccess && <Redirect to="/" />}
-            <button onClick={this.updateRedirect}>Update Sale</button>
-            {this.state.update && <Redirect to={`/saleupdate/${sale.id}`} />}
+        <Container className="form-container">
+          <div className="row">
+          <div className="col-6">
+            <img src={sale.img} className="sale-img" />
           </div>
-        )}
+          <div className="col-6">
+            <h2>{sale.title}</h2>
+            <h4>Address: {sale.address},</h4>
+            <h4>
+              {" "}
+              {sale.city}, {sale.state} {sale.zip}
+            </h4>
+            <h4>Payment Type: {sale.payment_type}</h4>
+            <p>{sale.description}</p>
+            {console.log(current_user, sale.user_id)}
+            {current_user.id === sale.user_id && (
+              <div>
+                <button onClick={this.deleteSale}>Delete this Sale</button>
+                {this.state.deletesuccess && <Redirect to="/" />}
+                <button onClick={this.updateRedirect}>Update Sale</button>
+                {this.state.update && <Redirect to={`/saleupdate/${sale.id}`} />}
+              </div>
+            )}
+          </div>
+          </div>
+        </Container>
       </>
     );
   }
