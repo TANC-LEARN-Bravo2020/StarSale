@@ -16,7 +16,9 @@ import iconOutline from "../starsaleiconoutline2.png"
           enddate: "",
         },
         userLat:"",
-        userLong:""
+        userLong:"",
+        sort:"Date",
+        flag:false
       }
       this.getSales()
     }
@@ -45,7 +47,11 @@ import iconOutline from "../starsaleiconoutline2.png"
     this.setState({form: form})
   }
 
-  distance = (lat1, lon1, lat2, lon2, unit) => {
+  handleSortChange = (event) => {
+    this.setState({sort: event.target.value});
+  }
+
+  distanceCalc = (lat1, lon1, lat2, lon2, unit) => {
 	if ((lat1 == lat2) && (lon1 == lon2)) {
 		return 0;
 	}
@@ -84,10 +90,42 @@ import iconOutline from "../starsaleiconoutline2.png"
     })
   }
 
+  distanceSort = (userLat,userLong) =>  {
+    if (this.state.flag === false)  {
+      let newArray = this.state.allSales.slice().sort((a, b) => {
+        let c = this.distanceCalc(userLat, userLong, a.latitude, a.longitude, "M")
+        let d = this.distanceCalc(userLat, userLong, b.latitude, b.longitude, "M")
+        return c<d ? -1 : c>d ? 1 : 0;
+      })
+      this.setState({
+        allSales: newArray,
+        flag: true
+      })
+    }
+  }
+
+  timeSort = () =>  {
+    if (this.state.flag === true) {
+      this.setState({
+        allSales: this.state.allSales.sort(function(a, b) {
+        a = new Date(a.date);
+        b = new Date(b.date);
+        return a<b ? -1 : a>b ? 1 : 0;
+        }),
+      flag:false
+      })
+    }
+  }
+
   render(){
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const { current_user } = this.props;
-
+    if (this.state.sort === "Date") {
+      this.timeSort()
+    }
+    if (this.state.sort === "Distance") {
+      this.distanceSort(this.state.userLat, this.state.userLong)
+    }
   return (
     <>
     <Container>
@@ -113,9 +151,9 @@ import iconOutline from "../starsaleiconoutline2.png"
       </FormGroup>
       <FormGroup className="col-sm">
         <Label for="exampleSelect">Sort By:</Label>
-        <Input type="select" name="select" id="exampleSelect">
-          <option>Date</option>
-          <option>Distance</option>
+        <Input type="select" name="select" id="exampleSelect" onChange={this.handleSortChange} value={this.state.sort}>
+          <option value="Date">Date</option>
+          <option value="Distance">Distance</option>
         </Input>
       </FormGroup>
       </Form>
@@ -123,7 +161,7 @@ import iconOutline from "../starsaleiconoutline2.png"
     <div className="all-sales">
       <div className="card-list">
         { this.state.allSales.map((sale, index) => {
-          let distance = this.distance(this.state.userLat, this.state.userLong, sale.latitude, sale.longitude, "M").toFixed(1)
+          let distance = this.distanceCalc(this.state.userLat, this.state.userLong, sale.latitude, sale.longitude, "M").toFixed(1)
 
           console.log(distance, "distance", sale.latitude, "sale - latitude")
 
