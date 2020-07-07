@@ -84,6 +84,20 @@ import iconOutline from "../starsaleiconoutline2.png"
     })
   }
 
+   // On click for the follow/following button
+   handleFavorite = (e, i) => {
+    e.preventDefault()
+    console.log(`${this.props.current_user.id}, ${i} `)
+    // if (!favorited) addToFavorites()
+    // else removeFromFavorites()
+  }
+
+  // On click for the delete button within the modal
+   handleDelete = e => {
+    e.preventDefault()
+    deleteApt()
+  }
+
   render(){
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const { current_user } = this.props;
@@ -141,7 +155,7 @@ import iconOutline from "../starsaleiconoutline2.png"
                 {current_user.id === sale.user_id && <div className="corner-shadow"><p className="your-sale"> This is your sale.</p></div>}
                 {/* Div containing our star button to add to faves */}
                 <div className="star-div">
-                  <button className="star-button"><img src={iconOutline} className="star-fave"/></button>
+                  <button className="star-button" onClick={(e) => this.handleFavorite(e, sale.id)}><img src={iconOutline} className="star-fave"/></button>
                 </div>
               <img src={sale.img} className="card-img-top"></img>
 
