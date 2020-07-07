@@ -18,7 +18,8 @@ import iconOutline from "../starsaleiconoutline2.png"
         userLat:"",
         userLong:"",
         sort:"Date",
-        flag:false
+        flag:false,
+        distanceFilter:"5"
       }
       this.getSales()
     }
@@ -49,6 +50,10 @@ import iconOutline from "../starsaleiconoutline2.png"
 
   handleSortChange = (event) => {
     this.setState({sort: event.target.value});
+  }
+
+  handleDistanceChange = (event) => {
+    this.setState({distanceFilter: event.target.value});
   }
 
   distanceCalc = (lat1, lon1, lat2, lon2, unit) => {
@@ -141,12 +146,13 @@ import iconOutline from "../starsaleiconoutline2.png"
         </FormGroup>
         <FormGroup className="col-sm">
         <Label for="exampleSelect">Distance:</Label>
-        <Input type="select" name="select" id="exampleSelect">
-          <option>5 miles</option>
-          <option>10 miles</option>
-          <option>20 miles</option>
-          <option>50 miles</option>
-          <option>100 miles</option>
+        <Input type="select" name="select" id="exampleSelect" onChange={this.handleDistanceChange} value={this.state.distanceFilter}>
+          <option value="5">5 miles</option>
+          <option value="10">10 miles</option>
+          <option value="20">20 miles</option>
+          <option value="50">50 miles</option>
+          <option value="100">100 miles</option>
+          <option value="1000000">any distance</option>
         </Input>
       </FormGroup>
       <FormGroup className="col-sm">
@@ -162,14 +168,15 @@ import iconOutline from "../starsaleiconoutline2.png"
       <div className="card-list">
         { this.state.allSales.map((sale, index) => {
           let distance = this.distanceCalc(this.state.userLat, this.state.userLong, sale.latitude, sale.longitude, "M").toFixed(1)
-
+          console.log(this.state.distanceFilter,"this is distance filter")
           console.log(distance, "distance", sale.latitude, "sale - latitude")
 
           if (new Date(sale.date) - new Date(this.state.form.startdate) >= 0
           &&  (
           (new Date(sale.date)-new Date(this.state.form.enddate) <= 0)
+          && (distance < parseInt(this.state.distanceFilter))
           ||
-          this.state.form.enddate === ""))
+          this.state.form.enddate === "" ))
           {
             return(
 
@@ -187,9 +194,6 @@ import iconOutline from "../starsaleiconoutline2.png"
                   <p className="card-text sale-date">{sale.date} - {distance} mi</p>
                   <h5 className="card-title sale-title">{ sale.title }</h5>
                   <p className="card-text sale-address">{sale.address}, {sale.city}</p>
-
-
-                  {/* <a href={`/saleview/${sale.id}`} className="btn btn-primary card-btn">More Info</a> */}
                 </div>
                 </a>
               </div>
