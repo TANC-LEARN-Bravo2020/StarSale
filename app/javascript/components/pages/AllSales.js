@@ -177,6 +177,7 @@ import iconOutline from "../starsaleiconoutline2.png"
           {
             return(
 
+
                 <div className="card" key={index}>
                   <a href={`/saleview/${sale.id}`} style={{ textDecoration: 'none' }}>
                   {/* Conditional render for "your sale to show on sales you own" */}
@@ -193,6 +194,7 @@ import iconOutline from "../starsaleiconoutline2.png"
                     <p className="card-text sale-address">{sale.address}, {sale.city}</p>
                   </div>
                   </a>
+
 
                 </div>
             )
