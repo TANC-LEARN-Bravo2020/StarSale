@@ -19,7 +19,7 @@ import iconOutline from "../starsaleiconoutline2.png"
         userLong:"",
         sort:"Date",
         flag:false,
-        distanceFilter:"5"
+        distanceFilter:"1000000"
       }
       this.getSales()
     }
@@ -27,7 +27,6 @@ import iconOutline from "../starsaleiconoutline2.png"
   componentDidMount(){
     this.getSales()
     this.getLocation()
-
   }
   setPosition = (position) => {
     this.setState({userLat:position.coords.latitude, userLong:position.coords.longitude})
@@ -147,12 +146,12 @@ import iconOutline from "../starsaleiconoutline2.png"
         <FormGroup className="col-sm">
         <Label for="exampleSelect">Distance:</Label>
         <Input type="select" name="select" id="exampleSelect" onChange={this.handleDistanceChange} value={this.state.distanceFilter}>
+          <option value="1000000">any distance</option>
           <option value="5">5 miles</option>
           <option value="10">10 miles</option>
           <option value="20">20 miles</option>
           <option value="50">50 miles</option>
           <option value="100">100 miles</option>
-          <option value="1000000">any distance</option>
         </Input>
       </FormGroup>
       <FormGroup className="col-sm">
@@ -168,36 +167,32 @@ import iconOutline from "../starsaleiconoutline2.png"
       <div className="card-list">
         { this.state.allSales.map((sale, index) => {
           let distance = this.distanceCalc(this.state.userLat, this.state.userLong, sale.latitude, sale.longitude, "M").toFixed(1)
-          console.log(this.state.distanceFilter,"this is distance filter")
-          console.log(distance, "distance", sale.latitude, "sale - latitude")
 
           if (new Date(sale.date) - new Date(this.state.form.startdate) >= 0
           &&  (
           (new Date(sale.date)-new Date(this.state.form.enddate) <= 0)
           && (distance < parseInt(this.state.distanceFilter))
           ||
-          this.state.form.enddate === "" ))
+          (this.state.form.enddate === "" && distance < parseInt(this.state.distanceFilter))))
           {
             return(
+                <div className="card" key={index}>
+                  <a href={`/saleview/${sale.id}`} style={{ textDecoration: 'none' }}>
+                  {/* Conditional render for "your sale to show on sales you own" */}
+                  {current_user.id === sale.user_id && <div className="corner-shadow"><p className="your-sale"> This is your sale.</p></div>}
+                  {/* Div containing our star button to add to faves */}
+                  <div className="star-div">
+                    <button className="star-button"><img src={iconOutline} className="star-fave"/></button>
+                  </div>
+                <img src={sale.img} className="card-img-top"></img>
 
-              <div className="card" >
-                <a href={`/saleview/${sale.id}`} style={{ textDecoration: 'none' }}>
-                {/* Conditional render for "your sale to show on sales you own" */}
-                {current_user.id === sale.user_id && <div className="corner-shadow"><p className="your-sale"> This is your sale.</p></div>}
-                {/* Div containing our star button to add to faves */}
-                <div className="star-div">
-                  <button className="star-button"><img src={iconOutline} className="star-fave"/></button>
+                  <div className="card-body">
+                    <p className="card-text sale-date">{sale.date} - {distance} mi</p>
+                    <h5 className="card-title sale-title">{ sale.title }</h5>
+                    <p className="card-text sale-address">{sale.address}, {sale.city}</p>
+                  </div>
+                  </a>
                 </div>
-              <img src={sale.img} className="card-img-top"></img>
-
-                <div className="card-body">
-                  <p className="card-text sale-date">{sale.date} - {distance} mi</p>
-                  <h5 className="card-title sale-title">{ sale.title }</h5>
-                  <p className="card-text sale-address">{sale.address}, {sale.city}</p>
-                </div>
-                </a>
-              </div>
-
             )
           }
         })}
