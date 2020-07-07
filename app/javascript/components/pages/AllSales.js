@@ -179,7 +179,7 @@ import iconOutline from "../starsaleiconoutline2.png"
                 {current_user.id === sale.user_id && <div className="corner-shadow"><p className="your-sale"> This is your sale.</p></div>}
                 {/* Div containing our star button to add to faves */}
                 <div className="star-div">
-                  <button className="star-button" onClick={(e) => this.handleFavorite(e, sale.id)}><img src={iconOutline} className="star-fave"/></button>
+                  <button className="star-button"><img src={iconOutline} className="star-fave"/></button>
                 </div>
               <img src={sale.img} className="card-img-top"></img>
 

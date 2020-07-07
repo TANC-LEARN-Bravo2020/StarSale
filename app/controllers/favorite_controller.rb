@@ -1,5 +1,5 @@
-class FavoritesController < ApplicationController
-    before_action :authenticate_user!
+class FavoriteController < ApplicationController
+    before_action :authenticate_user!, only: [:create, :destroy, :index]
   
     def index
       favorites = current_user.favorites.all
@@ -26,7 +26,7 @@ class FavoritesController < ApplicationController
   
     private
     def favorite_params
-      params.require(:favorite).permit(:sale_id)
+      params.require(:favorite).permit(:sale_id, :user_id)
     end
   
   end
