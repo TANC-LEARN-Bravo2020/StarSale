@@ -20,7 +20,8 @@ import iconOutline from "../starsaleiconoutline2.png"
         sort:"Date",
         flag:false,
         distanceFilter:"1000000",
-        favedArray:[]
+        favedArray:[],
+        faveJSON:[]
       }
       this.getSales()
     }
@@ -84,6 +85,7 @@ import iconOutline from "../starsaleiconoutline2.png"
           // Fetch JSON of favorites specific to current user
           let favResponse = await fetch("/favorite");
           let favData = await favResponse.json();
+          this.setState({faveJSON: favData})
           // Declare array to hold only favorited apt ids to be used in both if-statements below
           let favSalesIdsArray;
           if (favResponse.ok) {
@@ -118,6 +120,28 @@ import iconOutline from "../starsaleiconoutline2.png"
         console.log(err);
     }
     }
+
+  // Delete apt id from favorited from Favorite model
+removeFromFavorites = (e, id) => {
+  e.preventDefault()
+  let favId = this.state.faveJSON.filter(favorite =>{
+    if (favorite.sale_id === id) {
+      return favorite
+    }
+  })[0].id
+  console.log("favID", favId)
+  fetch(`/favorite/${favId}`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "DELETE",
+  })
+    .then((response) => {
+      if (response.ok) {
+        this.getSales()
+      }
+    })
+};
 
   distanceSort = (userLat,userLong) =>  {
     if (this.state.flag === false)  {
@@ -190,7 +214,7 @@ import iconOutline from "../starsaleiconoutline2.png"
                   {current_user.id === sale.user_id && <div className="corner-shadow"><p className="your-sale"> This is your sale.</p></div>}
                   {/* Div containing our star button to add to faves */}
                   <div className="star-div">
-                    <button className="star-button"><img src={iconOutline} className="star-fave"/></button>
+                    <button onClick={(e)=>{this.removeFromFavorites(e, sale.id)}} className="star-button"><img src={icon} className="star-fave"/></button>
                   </div>
                 <img src={sale.img} className="card-img-top"></img>
 

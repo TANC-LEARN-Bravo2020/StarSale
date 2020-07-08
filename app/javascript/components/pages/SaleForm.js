@@ -53,6 +53,9 @@ class SaleForm extends React.Component {
     e.preventDefault()
     let latlongform = await this.fetchLatLong()
     console.log(latlongform)
+    if(latlongform.img === ""){
+      latlongform.img = "https://i.imgur.com/4gk26cn.png"
+    }
     // console.log(this.state.form)
     this.pushSale(latlongform)
   }
