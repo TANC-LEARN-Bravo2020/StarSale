@@ -19,6 +19,7 @@ class ShowSale extends React.Component {
       update: false,
       favorited: false,
       favId: "",
+      faveSales:[]
     };
     this.getSale();
   }
@@ -45,6 +46,7 @@ class ShowSale extends React.Component {
           });
           // Create array of just the ids of the apts favorited by current user
           favAptIdsArray = favData.map((value) => value.sale_id);
+          this.setState({faveSales:favAptIdsArray})
           console.log("favAptIdsArray:", favAptIdsArray);
         }
       }
@@ -58,7 +60,7 @@ class ShowSale extends React.Component {
         .then((saleJSON) => {
           console.log("test saleJSon", saleJSON);
           this.setState({ sale: saleJSON });
-          if (favAptIdsArray.includes(saleJSON.id)) {
+          if (this.state.faveSales.includes(saleJSON.id)) {
             this.setState({ favorited: true });
           }
         });
