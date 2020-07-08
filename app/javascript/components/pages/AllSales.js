@@ -23,7 +23,6 @@ import iconOutline from "../starsaleiconoutline2.png"
         favedArray:[],
         faveJSON:[],
       }
-      this.getSales()
     }
 
   componentDidMount(){
@@ -160,7 +159,6 @@ removeFromFavorites = (id) => {
         this.getSales()
       }
     })
-    
 };
 
   distanceSort = (userLat,userLong) =>  {
