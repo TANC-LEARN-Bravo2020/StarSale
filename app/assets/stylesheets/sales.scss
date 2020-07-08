@@ -53,7 +53,7 @@
 }
 .sale-date{
     color: #B1161D;
-    
+
 }
 .sale-title {
     color:#002626
@@ -105,15 +105,29 @@ label{
 
 .form-page{
     background-color:#ebebeb;
-    height:100vh;
+    min-height: 85vh;
 }
 
 .form-container{
     background-color: white;
-    height:100vh;
+    min-height: 85vh;
     padding-top:3rem;
-
+    position: relative;
 }
 .sale-img{
     width:100%;
+}
+.page-container{
+  position: relative;
+  min-height: 89vh;
+}
+.content-wrap{
+  padding-bottom: 2.5rem;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;            /* Footer height */
 }

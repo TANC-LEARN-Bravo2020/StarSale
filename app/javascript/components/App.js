@@ -7,6 +7,7 @@ import ShowSale from "./pages/ShowSale";
 import UpdateSale from "./pages/UpdateSale";
 import UserAccount from "./pages/UserAccount";
 import Footer from "./pages/Footer";
+import About from "./pages/About";
 import logo from "./starsalelogo.png"
 
 class App extends React.Component {
@@ -86,23 +87,29 @@ class App extends React.Component {
           </Nav>
         </Navbar>
         <Route path="/newsale/" render={(props) => (
-          <div>
-            <SaleForm {...props} apiKey={this.props.apiKey} />
+          <div className="page-container">
+            <div className="content-wrap">
+              <SaleForm {...props} apiKey={this.props.apiKey} />
+            </div>
             <Footer current_user={this.props.current_user} logged_in={this.props.logged_in} sign_in_route={this.props.sign_in_route} sign_out_route={this.props.sign_out_route}/>
           </div>
         )} />
         <Route
         exact path="/"
         render={(props) => (
-          <div>
-            <AllSales {...props} current_user={this.props.current_user} />
+          <div className="page-container">
+            <div className="content-wrap">
+              <AllSales {...props} current_user={this.props.current_user} />
+            </div>
             <Footer {...props} current_user={this.props.current_user} logged_in={this.props.logged_in} sign_in_route={this.props.sign_in_route} sign_out_route={this.props.sign_out_route}/>
           </div>
         )} />
 
         <Route exact path="/saleupdate/:id" render={(props) => (
-          <div>
-            <UpdateSale {...props} apiKey={this.props.apiKey} />
+          <div className="page-container">
+            <div className="content-wrap">
+              <UpdateSale {...props} apiKey={this.props.apiKey} />
+            </div>
             <Footer {...props} current_user={this.props.current_user} logged_in={this.props.logged_in} sign_in_route={this.props.sign_in_route} sign_out_route={this.props.sign_out_route}/>
           </div>
         )} />
@@ -110,8 +117,10 @@ class App extends React.Component {
         <Route
           exact path="/saleview/:id"
           render={(props) => (
-            <div>
-              <ShowSale {...props} current_user={this.props.current_user} />
+            <div className="page-container">
+              <div className="content-wrap">
+                <ShowSale {...props} current_user={this.props.current_user} />
+              </div>
               <Footer {...props} current_user={this.props.current_user} logged_in={this.props.logged_in} sign_in_route={this.props.sign_in_route} sign_out_route={this.props.sign_out_route}/>
             </div>
           )}
@@ -119,8 +128,21 @@ class App extends React.Component {
         <Route
         path="/myaccount/"
         render={(props) => (
-          <div>
-            <UserAccount {...props} current_user={this.props.current_user} />
+          <div className="page-container">
+            <div className="content-wrap">
+              <UserAccount {...props} current_user={this.props.current_user} />
+            </div>
+            <Footer {...props} current_user={this.props.current_user} logged_in={this.props.logged_in} sign_in_route={this.props.sign_in_route} sign_out_route={this.props.sign_out_route}/>
+          </div>
+        )}
+        />
+        <Route
+        path="/about/"
+        render={(props) => (
+          <div className="page-container">
+            <div className="content-wrap">
+              <About {...props} current_user={this.props.current_user} />
+            </div>
             <Footer {...props} current_user={this.props.current_user} logged_in={this.props.logged_in} sign_in_route={this.props.sign_in_route} sign_out_route={this.props.sign_out_route}/>
           </div>
         )}
