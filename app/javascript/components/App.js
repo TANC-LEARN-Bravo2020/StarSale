@@ -6,6 +6,7 @@ import SaleForm from "./pages/SaleForm";
 import ShowSale from "./pages/ShowSale";
 import UpdateSale from "./pages/UpdateSale";
 import UserAccount from "./pages/UserAccount";
+import UserFavorites from "./pages/UserFavorites";
 import Footer from "./pages/Footer";
 import About from "./pages/About";
 import logo from "./starsalelogo.png"
@@ -48,6 +49,13 @@ class App extends React.Component {
               <NavItem>
                 <NavLink to="/myaccount/" tag={Link} className="ml-auto">
                   Account Details
+                </NavLink>
+              </NavItem>
+            )}
+            {logged_in && (
+              <NavItem>
+                <NavLink to="/myfavorites/" tag={Link} className="ml-auto">
+                  Starred Sales
                 </NavLink>
               </NavItem>
             )}
@@ -131,6 +139,17 @@ class App extends React.Component {
           <div className="page-container">
             <div className="content-wrap">
               <UserAccount {...props} current_user={this.props.current_user} />
+            </div>
+            <Footer {...props} current_user={this.props.current_user} logged_in={this.props.logged_in} sign_in_route={this.props.sign_in_route} sign_out_route={this.props.sign_out_route}/>
+          </div>
+        )}
+        />
+        <Route
+        path="/myfavorites/"
+        render={(props) => (
+          <div className="page-container">
+            <div className="content-wrap">
+              <UserFavorites {...props} current_user={this.props.current_user} />
             </div>
             <Footer {...props} current_user={this.props.current_user} logged_in={this.props.logged_in} sign_in_route={this.props.sign_in_route} sign_out_route={this.props.sign_out_route}/>
           </div>
