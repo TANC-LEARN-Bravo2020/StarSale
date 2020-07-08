@@ -6,6 +6,7 @@ import SaleForm from "./pages/SaleForm";
 import ShowSale from "./pages/ShowSale";
 import UpdateSale from "./pages/UpdateSale";
 import UserAccount from "./pages/UserAccount";
+import Footer from "./pages/Footer";
 import logo from "./starsalelogo.png"
 
 class App extends React.Component {
@@ -16,22 +17,6 @@ class App extends React.Component {
     };
   }
 
-
-  // componentDidMount(){
-  //   this.getSales()
-  // }
-
-  // getSales = () => {
-  //   fetch("/sales")
-  //   .then((response)=>{
-  //     if(response.status ===200){
-  //       return(response.json())
-  //     }
-  //   })
-  //   .then((saleArray) => {
-  //     this.setState({allSales: saleArray})
-  //   })
-  // }
   render() {
     const {
       logged_in,
@@ -101,31 +86,46 @@ class App extends React.Component {
           </Nav>
         </Navbar>
         <Route path="/newsale/" render={(props) => (
-          <SaleForm {...props} apiKey={this.props.apiKey} />
+          <div>
+            <SaleForm {...props} apiKey={this.props.apiKey} />
+            <Footer current_user={this.props.current_user} logged_in={this.props.logged_in} sign_in_route={this.props.sign_in_route} sign_out_route={this.props.sign_out_route}/>
+          </div>
         )} />
         <Route
         exact path="/"
         render={(props) => (
-          <AllSales {...props} current_user={this.props.current_user} />
+          <div>
+            <AllSales {...props} current_user={this.props.current_user} />
+            <Footer {...props} current_user={this.props.current_user} logged_in={this.props.logged_in} sign_in_route={this.props.sign_in_route} sign_out_route={this.props.sign_out_route}/>
+          </div>
         )} />
 
         <Route exact path="/saleupdate/:id" render={(props) => (
-          <UpdateSale {...props} apiKey={this.props.apiKey} />
+          <div>
+            <UpdateSale {...props} apiKey={this.props.apiKey} />
+            <Footer {...props} current_user={this.props.current_user} logged_in={this.props.logged_in} sign_in_route={this.props.sign_in_route} sign_out_route={this.props.sign_out_route}/>
+          </div>
         )} />
-        
+
         <Route
           exact path="/saleview/:id"
           render={(props) => (
-            <ShowSale {...props} current_user={this.props.current_user} />
+            <div>
+              <ShowSale {...props} current_user={this.props.current_user} />
+              <Footer {...props} current_user={this.props.current_user} logged_in={this.props.logged_in} sign_in_route={this.props.sign_in_route} sign_out_route={this.props.sign_out_route}/>
+            </div>
           )}
         />
         <Route
         path="/myaccount/"
         render={(props) => (
-          <UserAccount {...props} current_user={this.props.current_user} />
+          <div>
+            <UserAccount {...props} current_user={this.props.current_user} />
+            <Footer {...props} current_user={this.props.current_user} logged_in={this.props.logged_in} sign_in_route={this.props.sign_in_route} sign_out_route={this.props.sign_out_route}/>
+          </div>
         )}
         />
-
+        {/*<Footer />*/}
       </Router>
     );
   }
