@@ -12,12 +12,6 @@ class Footer extends React.Component {
   }
 
   render() {
-    const style = {
-      backgroundColor: '#ebebeb',
-      height: '50px',
-      borderTop: '1px solid #fbfbfb'
-
-    };
 
     const {
       logged_in,
@@ -29,20 +23,25 @@ class Footer extends React.Component {
 
     return (
       <>
-        <footer style={style}>
+        <footer>
           <Navbar color="light" light expand="md">
             <NavbarBrand href="/"><img src={ logo } width="200px"/></NavbarBrand>
             <Nav className="nav-bar ml-auto">
               <NavItem>
+                <NavLink to="/about" tag={Link} className="ml-auto">
+                  About Us
+                </NavLink>
+              </NavItem>
+              <NavItem>
                 <NavLink to="/" tag={Link} className="ml-auto">
-                  See All Sales |
+                  See All Sales
                 </NavLink>
               </NavItem>
 
               {logged_in && (
                 <NavItem>
                   <NavLink to="/newsale" tag={Link} className="ml-auto">
-                    Post a New Sale |
+                    Post a New Sale
                   </NavLink>
                 </NavItem>
               )}
