@@ -19,7 +19,9 @@ import iconOutline from "../starsaleiconoutline2.png"
         userLong:"",
         sort:"Date",
         flag:false,
-        distanceFilter:"1000000"
+        distanceFilter:"1000000",
+        favedArray:[],
+        faveJSON:[],
       }
       this.getSales()
     }
@@ -77,7 +79,22 @@ import iconOutline from "../starsaleiconoutline2.png"
 	}
 }
 
-  getSales = () => {
+  async getSales() {
+    try {
+        
+      // Fetch JSON of favorites specific to current user
+      let favResponse = await fetch("/favorite");
+      let favData = await favResponse.json();
+      this.setState({faveJSON: favData})
+      console.log("THIS IS FAVDATA",favData)
+      // Declare array to hold only favorited apt ids to be used in both if-statements below
+      let favSalesIdsArray;
+      if (favResponse.ok) {
+        // Create array of just the ids of the apts favorited by current user
+        favSalesIdsArray = favData.map((value) => value.sale_id);
+        this.setState({favedArray: favSalesIdsArray})
+        console.log("favedArray", this.state.favedArray);
+    }   
     fetch("/sales")
     .then((response)=>{
       if(response.status ===200){
@@ -92,7 +109,59 @@ import iconOutline from "../starsaleiconoutline2.png"
     })})
       console.log(this.state.allSales)
     })
+  }catch (err) {
+    console.log(err);
   }
+}
+
+handleFavorite = (e, id) => {
+  e.preventDefault();
+  // console.log(this.props.current_user.id, id);
+  if (this.state.favedArray.includes(id)) {
+    this.removeFromFavorites(id);
+  } else this.addToFavorites(id);
+};
+
+addToFavorites = (id) => {
+  let fave = {
+    sale_id: id,
+    user_id: this.props.current_user.id,
+  };
+  fetch("/favorite", {
+    body: JSON.stringify({ favorite: fave }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "POST",
+  })
+    .then((response) => {
+      if (response.ok) {
+        this.getSales();
+      }
+    })
+};
+
+// Delete apt id from favorited from Favorite model
+removeFromFavorites = (id) => {
+  let favId = this.state.faveJSON.filter(favorite =>{
+    if (favorite.sale_id === id) {
+      return favorite
+    }
+  })[0].id
+  console.log("favID", favId)
+  fetch(`/favorite/${favId}`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    method: "DELETE",
+  })
+    .then((response) => {
+      if (response.ok) {
+        this.getSales()
+      }
+    })
+    
+};
 
   distanceSort = (userLat,userLong) =>  {
     if (this.state.flag === false)  {
@@ -184,7 +253,8 @@ import iconOutline from "../starsaleiconoutline2.png"
                   {current_user.id === sale.user_id && <div className="corner-shadow"><p className="your-sale"> This is your sale.</p></div>}
                   {/* Div containing our star button to add to faves */}
                   <div className="star-div">
-                    <button className="star-button"><img src={iconOutline} className="star-fave"/></button>
+                    {this.state.favedArray.includes(sale.id) && <button onClick={(e)=>{this.handleFavorite(e, sale.id)}} className="star-button"><img src={icon} className="star-fave"/></button>}
+                    {!this.state.favedArray.includes(sale.id) && <button onClick={(e)=>{this.handleFavorite(e, sale.id)}} className="star-button"><img src={iconOutline} className="star-fave"/></button>}
                   </div>
                 <img src={sale.img} className="card-img-top"></img>
 

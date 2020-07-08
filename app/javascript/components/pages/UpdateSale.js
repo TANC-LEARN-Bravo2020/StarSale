@@ -71,7 +71,9 @@ class UpdateSale extends React.Component {
     e.preventDefault()
     let latlongform = await this.fetchLatLong()
     console.log(latlongform)
-    // console.log(this.state.form)
+    if(latlongform.img === ""){
+      latlongform.img = "https://wiki.tripwireinteractive.com/images/4/47/Placeholder.png"
+    }
     this.updateSale(latlongform)
   }
 
