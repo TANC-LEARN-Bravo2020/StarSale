@@ -1,127 +1,130 @@
 // Place all the styles related to the Sales controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&display=swap");
 
-.all-sales{
-    display:flex;
-    justify-content: center;
+.all-sales {
+  display: flex;
+  justify-content: center;
 }
-.card{
-    width:18rem;
-    height:23rem;
-    margin:.5rem;
-    position:relative;
+.card {
+  width: 18rem;
+  height: 23rem;
+  margin: 0.5rem;
+  position: relative;
 }
-.card:hover{
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
+.card:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .card-list {
-    display: flex;
-    flex-wrap: wrap;
-    align-content: space-between;
-    width: 80vw;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+  width: 80vw;
 }
-.card-img-top{
-    min-height: 199px;
-    max-height: 200px;
+.card-img-top {
+  min-height: 199px;
+  max-height: 200px;
 }
-.card-btn-holder{
-    display: flex;
-    justify-content: space-around;
+.card-btn-holder {
+  display: flex;
+  justify-content: space-around;
 }
-.card-title{
-    height:2.5rem;
+.card-title {
+  height: 2.5rem;
 }
-.card-text{
-    text-overflow: ellipsis
+.card-text {
+  text-overflow: ellipsis;
 }
 .btn-primary {
-    color: #fff;
-    background-color: #537D8D !important ;
-    border-color: #537D8D !important ;
+  color: #fff;
+  background-color: #537d8d !important ;
+  border-color: #537d8d !important ;
 }
 .nav-link {
-    display: block;
-    padding: 0.5rem 1rem;
-    font-size: 1.2rem !important;
-    color: #537D8D !important ;
+  display: block;
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem !important;
+  color: #537d8d !important ;
+  &:hover {
+    color: #b1161d !important;
+    font-weight: bolder;
+  }
 }
-.your-sale{
-    color: white;
-    font-size: 15px;
+.your-sale {
+  color: white;
+  font-size: 15px;
 }
-.sale-date{
-    color: #B1161D;
-
+.sale-date {
+  color: #b1161d;
 }
 .sale-title {
-    color:#002626
+  color: #002626;
 }
-.sale-address{
-    color:#002626;
-    text-overflow: ellipsis
+.sale-address {
+  color: #002626;
+  text-overflow: ellipsis;
 }
-.corner-shadow{
-    background-color: #002626 ;
-    opacity: 70%;
-    width:8rem;
-    height:2rem;
-    position: absolute;
-    z-index: 10;
-    padding: .3rem;
+.corner-shadow {
+  background-color: #002626;
+  opacity: 70%;
+  width: 8rem;
+  height: 2rem;
+  position: absolute;
+  z-index: 10;
+  padding: 0.3rem;
 }
-.star-div{
-    position: absolute;
-    display: flex;
-    justify-content: flex-end;
-    height: 50px;
-    width: 100%;
+.star-div {
+  position: absolute;
+  display: flex;
+  justify-content: flex-end;
+  height: 50px;
+  width: 100%;
 }
-.star-button{
-    height: 50px;
-    width:50px;
-    border-radius: 50%;
-    background-color: transparent;
-    border: none;
+.star-button {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: none;
 }
-.star-fave{
-    height:40px;
-    transition: all .15s ease-in-out;
+.star-fave {
+  height: 40px;
+  transition: all 0.15s ease-in-out;
 }
-.star-fave:hover{
-    transform: scale(1.2);
+.star-fave:hover {
+  transform: scale(1.2);
 }
-.page-header{
-    text-align: center;
-    margin-bottom: 3rem;
-    color: #537D8D;
-    font-size: 40px;
-}
-
-label{
-    font-size: 18px;
+.page-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  color: #537d8d;
+  font-size: 40px;
 }
 
-.form-page{
-    background-color:#ebebeb;
-    min-height: 85vh;
+label {
+  font-size: 18px;
 }
 
-.form-container{
-    background-color: white;
-    min-height: 85vh;
-    padding-top:3rem;
-    position: relative;
+.form-page {
+  background-color: #ebebeb;
+  min-height: 85vh;
 }
-.sale-img{
-    width:100%;
+
+.form-container {
+  background-color: white;
+  min-height: 85vh;
+  padding-top: 3rem;
+  position: relative;
 }
-.page-container{
+.sale-img {
+  width: 100%;
+}
+.page-container {
   position: relative;
   min-height: 89vh;
 }
-.content-wrap{
+.content-wrap {
   padding-bottom: 2.5rem;
 }
 
@@ -129,5 +132,10 @@ footer {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 2.5rem;            /* Footer height */
+  height: 2.5rem; /* Footer height */
+}
+
+h2 {
+  font-family: "IBM Plex Mono", monospace;
+  color: #537d8d;
 }
