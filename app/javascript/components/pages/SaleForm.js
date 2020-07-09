@@ -76,7 +76,9 @@ class SaleForm extends React.Component {
 
   fetchLatLong = () => {
     // console.log("API KEY", this.props.apiKey)
-    return fetch(`//api.positionstack.com/v1/forward?access_key=${this.props.apiKey}&query=${this.state.form.address},${this.state.form.city}${this.state.form.state}`)
+    // return fetch(`//api.positionstack.com/v1/forward?access_key=${this.props.apiKey}&query=${this.state.form.address},${this.state.form.city}${this.state.form.state}`)
+    console.log("::fetch address::",this.state.form.address, this.state.form.city, this.state.form.state)
+    return fetch(`https://www.mapquestapi.com/geocoding/v1/address?key=${this.props.apiKey}&inFormat=kvp&outFormat=json&location=${this.state.form.address},${this.state.form.city},${this.state.form.state}&thumbMaps=false`)
       .then((response)=>{
         console.log("response status:",response.status)
         if(response.status === 200){
@@ -84,11 +86,11 @@ class SaleForm extends React.Component {
         return(response.json())
       })
       .then((response)=>{
-        console.log(response.data[0])
+        console.log(response.results)
         let {form} = this.state
-        console.log("the form before lat and long added", form)
-        form.latitude = response.data[0].latitude
-        form.longitude = response.data[0].longitude
+        console.log("response results", response.results[0].locations[0])
+        form.latitude = response.results[0].locations[0].latLng.lat
+        form.longitude = response.results[0].locations[0].latLng.lng
         console.log("does it save lat long?", form)
         return form
       })
