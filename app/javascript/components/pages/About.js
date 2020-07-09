@@ -44,7 +44,6 @@ class About extends React.Component {
     })
     return (
       <>
-        <h3>Lorem ipsum dolor sit amet, pertinax consequat conclusionemque eam at, at aeterno facilisi recteque nam. Mei te veri sonet appellantur, sed erant nusquam praesent no, quas eleifend cum ei. Te nominavi oportere splendide eos, ius equidem intellegat neglegentur an. Noster petentium explicari his ut. Id epicuri delicatissimi sed, ne placerat similique pri, no soluta percipit apeirian his.</h3>
         {data}
       </>
     );
