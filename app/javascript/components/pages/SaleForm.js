@@ -47,6 +47,7 @@ class SaleForm extends React.Component {
       .then(() => {
         this.setState({success:true})
       })
+      .catch(err => console.log(err))
   }
 
   handleSubmit = async e => {
@@ -79,6 +80,7 @@ class SaleForm extends React.Component {
         console.log("does it save lat long?", form)
         return form
       })
+      .catch(err => console.log(err))
   }
 
   render () {
