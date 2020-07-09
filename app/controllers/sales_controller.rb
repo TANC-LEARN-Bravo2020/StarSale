@@ -16,7 +16,7 @@ before_action :authenticate_user!, only: [:create]
         if sale.valid? 
             render json: sale
         else
-            render json: sale.errors
+            render json: sale.errors, status: 403
         end
     end
 
