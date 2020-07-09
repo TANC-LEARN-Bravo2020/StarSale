@@ -254,14 +254,14 @@ removeFromFavorites = (id) => {
                   {current_user.id === sale.user_id && <div className="corner-shadow"><p className="your-sale"> This is your sale.</p></div>}
                   {/* Div containing our star button to add to faves */}
                   <div className="star-div">
-                    {this.state.favedArray.includes(sale.id) && <button onClick={(e)=>{this.handleFavorite(e, sale.id)}} className="star-button"><img src={icon} className="star-fave"/></button>}
-                    {!this.state.favedArray.includes(sale.id) && <button onClick={(e)=>{this.handleFavorite(e, sale.id)}} className="star-button"><img src={iconOutline} className="star-fave"/></button>}
+                    {(this.state.favedArray.includes(sale.id) && this.props.current_user.id !== 0) && <button onClick={(e)=>{this.handleFavorite(e, sale.id)}} className="star-button"><img src={icon} className="star-fave"/></button>}
+                    {(!this.state.favedArray.includes(sale.id) && this.props.current_user.id !== 0) && <button onClick={(e)=>{this.handleFavorite(e, sale.id)}} className="star-button"><img src={iconOutline} className="star-fave"/></button>}
                   </div>
                 <img src={sale.img} className="card-img-top"></img>
 
                   <div className="card-body">
                     <p className="card-text sale-date">{sale.date} - {distance} mi</p>
-                    <h5 className="card-title sale-title">{ sale.title }</h5>
+                    <h5 className="card-title sale-title text-align-center">{ sale.title }</h5>
                     <p className="card-text sale-address">{sale.address}, {sale.city}</p>
                   </div>
                   </a>

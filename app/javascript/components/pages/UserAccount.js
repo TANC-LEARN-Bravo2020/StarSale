@@ -73,21 +73,21 @@ import { Redirect, Link } from "react-router-dom";
         <div className="column-right-user-account">
           <h3 className="info-spacing-user-account header-user-account"> Sales Info </h3>
           <Container>
-              <div className="card-list">
+              <div className="card-list-user">
                 { this.state.allSales.map((sale, index) => {
                   if(current_user.id === sale.user_id){
                     return(
                     <div key={index} className="card" >
                       <img src={sale.img} className="card-img-top"></img>
-                      <div className="card-body">
+                      <div className='card-text' >
                         <h5 className="card-title">{ sale.title }</h5>
-                        <p className="card-text">{sale.address}, {sale.city}</p>
-                        <div className="card-btn-holder">
-                          <a href={`/saleview/${sale.id}`} className="btn btn-primary card-btn">View</a>
+                        <p className="card-text text-pos">{sale.address}, {sale.city}</p>
+                        <div className="card-btn-holder button-pos">
+                          <a href={`/saleview/${sale.id}`} className="btn btn-primary card-btn btn-margin">View</a>
 
-                          <a href={`/saleupdate/${sale.id}`} tag={Link} className="btn btn-primary card-btn">Update</a>
+                          <a href={`/saleupdate/${sale.id}`} tag={Link} className="btn btn-primary card-btn btn-margin">Update</a>
 
-                          <button onClick={()=>this.deleteSale(sale.id)} className="btn btn-primary card-btn">Delete</button>
+                          <button onClick={()=>this.deleteSale(sale.id)} className="btn btn-primary card-btn ">Delete</button>
                             {this.state.deletesuccess && <Redirect to="/" />}
 
                         </div>

@@ -157,9 +157,9 @@ class ShowSale extends React.Component {
           <div className="row row-1">
             <div className="col-6">
               <div>
-                <div className="star-div">
-                        {this.state.favorited && <button onClick={(e)=>{this.handleFavorite(e)}} className="star-button"><img src={icon} className="star-fave"/></button>}
-                        {!this.state.favorited && <button onClick={(e)=>{this.handleFavorite(e)}} className="star-button"><img src={iconOutline} className="star-fave"/></button>}
+                <div className="star-divv">
+                        {(this.state.favorited && this.props.current_user.id !== 0) && <button onClick={(e)=>{this.handleFavorite(e)}} className="star-button"><img src={icon} className="star-fave"/></button>}
+                        {(!this.state.favorited && this.props.current_user.id !== 0) && <button onClick={(e)=>{this.handleFavorite(e)}} className="star-button"><img src={iconOutline} className="star-fave"/></button>}
                 </div>
                   <img src={sale.img} className="sale-img" />
                 </div>
