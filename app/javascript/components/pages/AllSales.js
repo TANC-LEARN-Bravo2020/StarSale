@@ -6,7 +6,7 @@ import iconOutline from "../starsaleiconoutline2.png"
 
 
 
-  class AllSales extends React.Component {
+class AllSales extends React.Component {
     constructor (props) {
       super (props)
       this.state = {
@@ -26,7 +26,7 @@ import iconOutline from "../starsaleiconoutline2.png"
     }
 
   componentDidMount(){
-    this.getSales()
+    this.handlePageLoad()
     this.getLocation()
   }
   setPosition = (position) => {
@@ -78,40 +78,43 @@ import iconOutline from "../starsaleiconoutline2.png"
 	}
 }
 
-  async getSales() {
-    try {
-        
-      // Fetch JSON of favorites specific to current user
-      let favResponse = await fetch("/favorite");
-      let favData = await favResponse.json();
-      this.setState({faveJSON: favData})
-      console.log("THIS IS FAVDATA",favData)
-      // Declare array to hold only favorited apt ids to be used in both if-statements below
-      let favSalesIdsArray;
-      if (favResponse.ok) {
-        // Create array of just the ids of the apts favorited by current user
-        favSalesIdsArray = favData.map((value) => value.sale_id);
-        this.setState({favedArray: favSalesIdsArray})
-        console.log("favedArray", this.state.favedArray);
-    }   
-    fetch("/sales")
-    .then((response)=>{
-      if(response.status ===200){
-        return(response.json())
-      }
-    })
-    .then((saleArray) => {
-      this.setState({allSales: saleArray.sort(function(a, b) {
-        a = new Date(a.date);
-        b = new Date(b.date);
-        return a<b ? -1 : a>b ? 1 : 0;
-    })})
-      console.log(this.state.allSales)
-    })
-  }catch (err) {
-    console.log(err);
+  handlePageLoad = () =>{
+    if (this.props.current_user.id !== 0){
+        this.getFaves()
+    }
+    this.getSales()
   }
-}
+
+
+
+  async getFaves(){
+    try{
+        let favResponse = await fetch("/favorite");
+        let favData = await favResponse.json();
+        let favSalesIdsArray = favData.map((value) => value.sale_id);
+        this.setState({
+            favedArray: favSalesIdsArray, 
+            faveJSON: favData
+        })
+    } catch (err) {
+        console.log(err);
+    } 
+  }
+
+  async getSales(){
+    try{
+        let salesResponse = await fetch("/sales");
+        let salesData = await salesResponse.json();
+        let sortedSales = salesData.sort((a, b) => {
+            let c = new Date(a.date);
+            let d = new Date(b.date);
+            return c<d ? -1 : c>d ? 1 : 0;
+        })
+        this.setState({allSales: sortedSales})
+    } catch (err) {
+        console.log(err);
+    }
+  }
 
 handleFavorite = (e, id) => {
   e.preventDefault();
@@ -135,7 +138,7 @@ addToFavorites = (id) => {
   })
     .then((response) => {
       if (response.ok) {
-        this.getSales();
+        this.handlePageLoad();
       }
     })
 };
@@ -156,7 +159,7 @@ removeFromFavorites = (id) => {
   })
     .then((response) => {
       if (response.ok) {
-        this.getSales()
+        this.handlePageLoad()
       }
     })
 };
