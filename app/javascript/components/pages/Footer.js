@@ -21,6 +21,7 @@ class Footer extends React.Component {
       apiKey
     } = this.props;
 
+
     return (
       <>
         <footer>

@@ -9,6 +9,8 @@ import {
   Container,
 } from "reactstrap";
 import { Redirect } from "react-router-dom";
+import icon from "../starsaleicon.png"
+import iconOutline from "../starsaleiconoutline2.png"
 
 class ShowSale extends React.Component {
   constructor(props) {
@@ -151,27 +153,33 @@ class ShowSale extends React.Component {
     return (
       <>
         <Container className="form-container">
-          <div className="row">
+        <h2 className="sale-name">{sale.title}</h2>
+          <div className="row row-1">
             <div className="col-6">
-              <img src={sale.img} className="sale-img" />
-              <button onClick={(e) => this.handleFavorite(e)}>Fave!</button>
-              {this.state.favorited && <p>FAVED! IT WORKS</p>}
-            </div>
-            <div className="col-6">
-              <h2>{sale.title}</h2>
-              <h4>Address: {sale.address},</h4>
-              <h4>
-                {" "}
-                {sale.city}, {sale.state} {sale.zip}
-              </h4>
-              <h4>Payment Type: {sale.payment_type}</h4>
-              <p>{sale.description}</p>
+              <div>
+                <div className="star-div">
+                        {this.state.favorited && <button onClick={(e)=>{this.handleFavorite(e)}} className="star-button"><img src={icon} className="star-fave"/></button>}
+                        {!this.state.favorited && <button onClick={(e)=>{this.handleFavorite(e)}} className="star-button"><img src={iconOutline} className="star-fave"/></button>}
+                </div>
+                  <img src={sale.img} className="sale-img" />
+                </div>
+              </div>  
+                <div className="col-6 text">
+                <div className="smaller-text"><span>Address:</span> {sale.address}
+                    {" "}
+                    {sale.city}, {sale.state} {sale.zip}
+                  </div>
+                  <div className="underline smaller-text">
+                    <span>Payment type:</span> {sale.payment_type}
+                  </div>
+              
+            
               {console.log(current_user, sale.user_id)}
               {current_user.id === sale.user_id && (
-                <div>
-                  <button onClick={this.deleteSale}>Delete this Sale</button>
+                <div className=" button-div">
+                  <button className="btn btn-primary sign-in-out b-1" onClick={this.deleteSale}>Delete this Sale</button>
                   {this.state.deletesuccess && <Redirect to="/" />}
-                  <button onClick={this.updateRedirect}>Update Sale</button>
+                  <button className="btn btn-primary sign-in-out" onClick={this.updateRedirect}>Update Sale</button>
                   {this.state.update && (
                     <Redirect to={`/saleupdate/${sale.id}`} />
                   )}
@@ -179,6 +187,9 @@ class ShowSale extends React.Component {
               )}
             </div>
           </div>
+          <div className="sale-description">{sale.description}</div>
+          
+          
         </Container>
       </>
     );
