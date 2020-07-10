@@ -1,29 +1,36 @@
 import React from "react";
+import aaron from "../aaron.jpeg"
+import nikki from "../nikki.jpeg"
+import thomas from "../thomas.jpeg"
+import chantelle from "../chantelle.jpeg"
+import groupPhoto from "../StarSaleGroup.jpg"
+import {Container } from 'reactstrap'
 
 class About extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       info: [{
-        imageURL: "https://media-exp1.licdn.com/dms/image/C5603AQFT92J1gx5yuQ/profile-displayphoto-shrink_400_400/0?e=1599696000&v=beta&t=n9ehwlNLvrnS_zJz7PQ076VBfiM9Dh2KXPKKWVcUU-Q",
+        imageURL: thomas,
         about: "I am originally from Oakland California but for the past few years I have been attending San Diego State down in Socal. I enjoy working with front-end applications because it gives me an opportunity to utilize coding to create experiences that let me connect with other people. My hobbies are Chess, Soccer, and competitive video games."
       },
       {
-        imageURL: "https://files.slack.com/files-pri/T04B40L2C-F016SU0GNBX/image.png",
+        imageURL: aaron,
         about: "I'm a Full-Stack web-developer at LEARN academy and graduated with my BA in Information system management. I am currently working with languages on the front-end like Javascript, HTML, CSS and ruby."
       },
       {
-        imageURL: "https://media-exp1.licdn.com/dms/image/C4E03AQEEGrngZav1DQ/profile-displayphoto-shrink_200_200/0?e=1599696000&v=beta&t=yRLAgpLtai9GvCdNNizQL2yn5FgIRxLXqiRV8Gzb_jc",
+        imageURL: nikki,
         about: "Hi there! My name is Nikki Brooks. I am a recent graduate of a full stack web development bootcamp, eager to utilize my new skills. I am passionate about building amazing websites that influence and improve the lives of those around me. When im not coding i enjoy, skateboarding, and hanging out at the beach with my dog Archie."
       },
       {
-        imageURL: "https://media-exp1.licdn.com/dms/image/C4E03AQElmpe96gkOWQ/profile-displayphoto-shrink_400_400/0?e=1599696000&v=beta&t=o_svEpJrM-zLe-WCypA8czAK2T39jVVqiry9_nK-1wo",
+        imageURL: chantelle,
         about: "A move to San Diego gave me the opportunity to attend the (appropriately named) LEARN Academy where my world of learning has been expanded. Becoming a Full Stack Web Developer has allowed me to open the hood of the digital world we live in and see the engine inside - and it’s fascinating. I’d love to learn about your ideas, your projects, and how we can work together to make them a reality."
       }]
     };
   }
 
   render() {
+
     let data = this.state.info.map((value, index) =>  {
       return (
         <div key={index}>
@@ -44,7 +51,13 @@ class About extends React.Component {
     })
     return (
       <>
+      <Container>
+      <div className="group-photo">
+        <img src={groupPhoto} width="700px" />
+      </div>
+      <p>We're Team TANC (Thomas, Aaron, Nikki, and Chantelle) from LEARN Academy's Bravo 2020 Cohort. We built StarSale as a full-stack application for our final capstone project.</p>
         {data}
+      </Container>
       </>
     );
   }
