@@ -3,23 +3,48 @@ require 'rails_helper'
 RSpec.describe Sale, type: :model do
   describe 'Sale' do
 
+    it { should belong_to(:user) }
+    it { should have_db_column(:address) }
+    it { should have_db_column(:city) }
+    it { should have_db_column(:state) }
+    it { should have_db_column(:zip) }
+    it { should have_db_column(:title) }
+    it { should have_db_column(:date) }
+    it { should have_db_column(:duration) }
+    it { should have_db_column(:description) }
+    it { should have_db_column(:latitude) }
+    it { should have_db_column(:longitude) }
+    it { should have_db_column(:payment_type) }
+    it { should have_db_column(:img) }
+
+
     it 'has to be real' do
       expect{ Sale.new }.to_not raise_error
     end
   
   
-     it 'has a address' do
+    it 'has a address that is a string' do
       my_sale = Sale.new
       my_sale.address = '123 main st'
       expect(my_sale.address).to be_a String
+    end
+
+    it 'has a address' do
+      my_sale = Sale.new
+      my_sale.address = '123 main st'
       expect(my_sale.address).to eq '123 main st'
     end
 
     it 'has a city' do
       my_sale = Sale.new
       my_sale.city = 'san diego'
-      expect(my_sale.city).to be_a String
       expect(my_sale.city).to eq 'san diego'
+    end
+
+    it 'has a city name that is a string' do
+      my_sale = Sale.new
+      my_sale.city = 'san diego'
+      expect(my_sale.city).to be_a String
     end
 
     it 'has a state' do
