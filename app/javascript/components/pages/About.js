@@ -32,7 +32,7 @@ class About extends React.Component {
       },
       {
         imageURL: chantelle,
-        about: "A move to San Diego gave me the opportunity to attend the (appropriately named) LEARN Academy where my world of learning has been expanded. Becoming a Full Stack Web Developer has allowed me to open the hood of the digital world we live in and see the engine inside - and it’s fascinating. I’d love to learn about your ideas, your projects, and how we can work together to make them a reality.",
+        about: "Hello, my name is Chantelle Isaacs.  A move to San Diego gave me the opportunity to attend the (appropriately named) LEARN Academy where my world of learning has been expanded. Becoming a Full Stack Web Developer has allowed me to open the hood of the digital world we live in and see the engine inside - and it’s fascinating. I’d love to learn about your ideas, your projects, and how we can work together to make them a reality.",
         linkedin: "https://www.linkedin.com/in/chantellerisaacs/",
         github: "https://github.com/chantelle-isaacs"
       }]
