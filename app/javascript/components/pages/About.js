@@ -8,6 +8,8 @@ import githubLogo from "../github.png"
 import linkedinLogo from "../linkedin.png"
 import {Container } from 'reactstrap'
 
+
+
 class About extends React.Component {
   constructor(props) {
     super(props);
@@ -40,8 +42,7 @@ class About extends React.Component {
   }
 
   render() {
-
-    let data = this.state.info.map((value, index) =>  {
+    let data = this.state.info.map((value, index) => {
       return (
         <div key={index}>
           <div className="row">
@@ -60,21 +61,23 @@ class About extends React.Component {
               </a>
             </div>
           </div>
-          {index !== 3 &&
-          <hr className="profile-border"></hr>
-          }
+          {index !== 3 && <hr className="profile-border"></hr>}
         </div>
-      )
-    })
+      );
+    });
     return (
       <>
-      <Container>
-      <div className="group-photo">
-        <img src={groupPhoto} width="700px" />
-      </div>
-      <p>We're Team TANC (Thomas, Aaron, Nikki, and Chantelle) from LEARN Academy's Bravo 2020 Cohort. We built StarSale as a full-stack application for our final capstone project.</p>
-        {data}
-      </Container>
+        <Container>
+          <div className="group-photo">
+            <img src={groupPhoto} width="700px" />
+          </div>
+          <p id="TEAM">
+            We're Team TANC (Thomas, Aaron, Nikki, and Chantelle) from LEARN
+            Academy's Bravo 2020 Cohort. We built StarSale as a full-stack
+            application for our final capstone project.
+          </p>
+          {data}
+        </Container>
       </>
     );
   }

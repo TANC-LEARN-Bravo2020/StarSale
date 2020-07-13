@@ -1,5 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Favorite, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  # 
+  it { should belong_to(:user) }
+
+  it { should have_db_column(:sale_id) }
+  it { should have_db_column(:user_id) }
+
+
+
 end
