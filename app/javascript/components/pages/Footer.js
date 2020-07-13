@@ -1,24 +1,21 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import { Nav, NavItem, NavLink, Navbar, NavbarBrand, Button } from "reactstrap";
-import logo from "../starsalelogo.png"
+import logo from "../starsalelogo.png";
 
 class Footer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-
-    };
+    this.state = {};
   }
 
   render() {
-
     const {
       logged_in,
       sign_in_route,
       sign_out_route,
       current_user,
-      apiKey
+      apiKey,
     } = this.props;
 
 
@@ -26,7 +23,9 @@ class Footer extends React.Component {
       <>
         <footer>
           <Navbar color="light" light expand="md">
-            <NavbarBrand href="/"><img src={ logo } width="200px"/></NavbarBrand>
+            <NavbarBrand href="/">
+              <img src={logo} width="200px" />
+            </NavbarBrand>
             <Nav className="nav-bar ml-auto">
               <NavItem>
                 <NavLink to="/about" tag={Link} className="ml-auto">
