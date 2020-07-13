@@ -1,28 +1,31 @@
-# README
+ -- LINK TO WORKING APP --
+ https://frozen-falls-51923.herokuapp.com/
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
+---------------------------------------------
 
-- Ruby version
+To get started:
+$bundle install
+$yarn install
+$rails db:migrate
 
-- System dependencies
+---------------------------------------------
 
-- Configuration
+For testing in jest/enzyme run
+$yarn jest
 
-- Database creation
+---------------------------------------------
 
-- Database initialization
+To run server locally:
+$rails s
 
-- How to run the test suite
+---------------------------------------------
 
-- Services (job queues, cache servers, search engines, etc.)
+Follow the link here: For API: key information: https://trello.com/b/eSITL5yV/capstone-team-tanc-yardsale-app
+rails credentials:edit
+EDITOR="vim" rails credentials:edit
 
-- Deployment instructions
+---------------------------------------------
 
-- ...
+A project by Thomas Gonda, Aaron Masanes, Nikki Brooks, and Chantelle Isaacs
 
-For testing in jest add "yarn add jest" install
-
-\$ yarn add -D enzyme react-test-renderer enzyme-adapter-react-16
