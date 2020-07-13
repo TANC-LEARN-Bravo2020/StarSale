@@ -69,16 +69,6 @@ class About extends React.Component {
     return (
       <>
         <Container>
-        <div className="group-photo">
-          <img src={groupPhoto} width="700px" />
-        </div>
-        <p className="about-project-description">We're Team TANC (Thomas, Aaron, Nikki, and Chantelle) from LEARN Academy's Bravo 2020 Cohort. We built StarSale as a full-stack application for our final capstone project.</p>
-        {data}
-      );
-    });
-    return (
-      <>
-        <Container>
           <div className="group-photo">
             <img src={groupPhoto} width="700px" />
           </div>
