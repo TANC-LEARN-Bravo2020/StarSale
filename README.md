@@ -28,3 +28,4 @@ EDITOR="vim" rails credentials:edit
 ---------------------------------------------
 
 A project by Thomas Gonda, Aaron Masanes, Nikki Brooks, and Chantelle Isaacs
+
