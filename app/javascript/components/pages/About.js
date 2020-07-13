@@ -6,7 +6,7 @@ import chantelle from "../chantelle.jpeg"
 import groupPhoto from "../StarSaleGroup.jpg"
 import githubLogo from "../github.png"
 import linkedinLogo from "../linkedin.png"
-import {Container } from 'reactstrap'
+import { Container } from 'reactstrap'
 
 class About extends React.Component {
   constructor(props) {
@@ -56,7 +56,7 @@ class About extends React.Component {
                 <img className="developer-links" src={linkedinLogo} width="70px" height="70px"></img>
               </a>
               <a href={value.github}>
-                <img className="developer-links" src={githubLogo} width="70px" height="70px"></img>
+                <img className="developer-links" src={githubLogo} width="87px" height="87px"></img>
               </a>
             </div>
           </div>
@@ -66,15 +66,16 @@ class About extends React.Component {
         </div>
       )
     })
+
     return (
       <>
-      <Container>
-      <div className="group-photo">
-        <img src={groupPhoto} width="700px" />
-      </div>
-      <p>We're Team TANC (Thomas, Aaron, Nikki, and Chantelle) from LEARN Academy's Bravo 2020 Cohort. We built StarSale as a full-stack application for our final capstone project.</p>
+        <Container>
+        <div className="group-photo">
+          <img src={groupPhoto} width="700px" />
+        </div>
+        <p className="about-project-description">We're Team TANC (Thomas, Aaron, Nikki, and Chantelle) from LEARN Academy's Bravo 2020 Cohort. We built StarSale as a full-stack application for our final capstone project.</p>
         {data}
-      </Container>
+        </Container>
       </>
     );
   }
