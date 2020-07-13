@@ -5,6 +5,13 @@ RSpec.describe User, type: :model do
     it 'has to be real' do
       expect{ User.new }.to_not raise_error
     end
+    it { should have_many(:favorites)}
+    it { should have_many(:sales)}
+
+    it { should have_db_column(:name) }
+    it { should have_db_column(:phone) }
+    it { should have_db_column(:email) }
+    it { should have_db_column(:encrypted_password) }
 
 
     it 'has a email' do
