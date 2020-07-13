@@ -151,22 +151,22 @@ footer {
     color: #537D8D;
     font-family: 'Open Sans', sans-serif;
     font-weight: 800;
-    
-    
+
+
     border-bottom: 1px solid grey;
 }
 
 .text{
 
     font-size:50px;
-    
+
 
 }
 
 .underline{
     margin-bottom: 20px;
     border-bottom: 1px solid grey;
-    
+
 }
 
 .smaller-text{
@@ -176,7 +176,7 @@ footer {
 
 span{
     font-size: 28px!important;
-    
+
 }
 
 .sale-description{
@@ -194,13 +194,13 @@ span{
 
  .b-1{
     margin-right: 10px;
-   
+
 }
 
 .button-div{
     display: flex;
     align-items: flex-start;
-}   
+}
 
 .profile-pic {
   height: 200px;
@@ -227,6 +227,11 @@ span{
 .column-right {
   width: 15%;
   height: 250px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Clear floats after the columns */
@@ -340,4 +345,9 @@ span{
 .group-photo{
   display:flex;
   justify-content:center;
+}
+
+.developer-links{
+  margin-top: 12px;
+  margin-bottom: 12px;
 }
